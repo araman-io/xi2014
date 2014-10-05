@@ -5,3 +5,4 @@
 5) To run the app, do - gradlew build && java -jar build/libs/gs-spring-boot-0.1.0.jar
 6) The name of the jar file, the version number all of them can be changed in the 'build.gradle' file. I just went with the flow.
 7) Autowiring is still not working; Need to add the component scan at the root level
+8) "lib" folder was added to resolve compile time dependencies. The jars are automatically downloaded and bundled by gradle during the build step.
