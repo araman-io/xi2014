@@ -3,21 +3,23 @@ package com.sape.xi2014.search.etsy;
 import java.util.List;
 
 public class EtsySearchResponse {
-	String count;
-	List<Result> resultlst;
-	public List<Result> getResultlst() {
-		return resultlst;
-	}
-	public void setResultlst(List<Result> resultlst) {
-		this.resultlst = resultlst;
-	}
-	public String getCount() {
-		return count;
-	}
-	public void setCount(String count) {
-		this.count = count;
-	}
-	
-	
-}
+  Integer count;
+  List<Result> results;
 
+  public List<Result> getResults() {
+    return results;
+  }
+
+  public void setResults(List<Result> results) {
+    this.results = results;
+  }
+
+  public Integer getCount() {
+    return count;
+  }
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+}

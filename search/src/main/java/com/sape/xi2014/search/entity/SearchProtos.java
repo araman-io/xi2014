@@ -13,25 +13,34 @@ public final class SearchProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>required int32 count = 1;</code>
+     */
+    boolean hasCount();
+    /**
+     * <code>required int32 count = 1;</code>
+     */
+    int getCount();
+
+    /**
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item> 
         getItemList();
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     com.sape.xi2014.search.entity.SearchProtos.Item getItem(int index);
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     int getItemCount();
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     java.util.List<? extends com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder> 
         getItemOrBuilderList();
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder getItemOrBuilder(
         int index);
@@ -92,10 +101,15 @@ public final class SearchProtos {
               }
               break;
             }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            case 8: {
+              bitField0_ |= 0x00000001;
+              count_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 item_ = new java.util.ArrayList<com.sape.xi2014.search.entity.SearchProtos.Item>();
-                mutable_bitField0_ |= 0x00000001;
+                mutable_bitField0_ |= 0x00000002;
               }
               item_.add(input.readMessage(com.sape.xi2014.search.entity.SearchProtos.Item.PARSER, extensionRegistry));
               break;
@@ -108,7 +122,7 @@ public final class SearchProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           item_ = java.util.Collections.unmodifiableList(item_);
         }
         this.unknownFields = unknownFields.build();
@@ -142,35 +156,51 @@ public final class SearchProtos {
       return PARSER;
     }
 
-    public static final int ITEM_FIELD_NUMBER = 1;
+    private int bitField0_;
+    public static final int COUNT_FIELD_NUMBER = 1;
+    private int count_;
+    /**
+     * <code>required int32 count = 1;</code>
+     */
+    public boolean hasCount() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 count = 1;</code>
+     */
+    public int getCount() {
+      return count_;
+    }
+
+    public static final int ITEM_FIELD_NUMBER = 2;
     private java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item> item_;
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     public java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item> getItemList() {
       return item_;
     }
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     public java.util.List<? extends com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder> 
         getItemOrBuilderList() {
       return item_;
     }
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     public int getItemCount() {
       return item_.size();
     }
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     public com.sape.xi2014.search.entity.SearchProtos.Item getItem(int index) {
       return item_.get(index);
     }
     /**
-     * <code>repeated .searchservice.Item item = 1;</code>
+     * <code>repeated .searchservice.Item item = 2;</code>
      */
     public com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder getItemOrBuilder(
         int index) {
@@ -178,6 +208,7 @@ public final class SearchProtos {
     }
 
     private void initFields() {
+      count_ = 0;
       item_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -186,6 +217,10 @@ public final class SearchProtos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasCount()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       for (int i = 0; i < getItemCount(); i++) {
         if (!getItem(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -199,8 +234,11 @@ public final class SearchProtos {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, count_);
+      }
       for (int i = 0; i < item_.size(); i++) {
-        output.writeMessage(1, item_.get(i));
+        output.writeMessage(2, item_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -211,9 +249,13 @@ public final class SearchProtos {
       if (size != -1) return size;
 
       size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, count_);
+      }
       for (int i = 0; i < item_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, item_.get(i));
+          .computeMessageSize(2, item_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -337,9 +379,11 @@ public final class SearchProtos {
 
       public Builder clear() {
         super.clear();
+        count_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
         if (itemBuilder_ == null) {
           item_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           itemBuilder_.clear();
         }
@@ -370,15 +414,21 @@ public final class SearchProtos {
       public com.sape.xi2014.search.entity.SearchProtos.SearchResponse buildPartial() {
         com.sape.xi2014.search.entity.SearchProtos.SearchResponse result = new com.sape.xi2014.search.entity.SearchProtos.SearchResponse(this);
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.count_ = count_;
         if (itemBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
             item_ = java.util.Collections.unmodifiableList(item_);
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.item_ = item_;
         } else {
           result.item_ = itemBuilder_.build();
         }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -394,11 +444,14 @@ public final class SearchProtos {
 
       public Builder mergeFrom(com.sape.xi2014.search.entity.SearchProtos.SearchResponse other) {
         if (other == com.sape.xi2014.search.entity.SearchProtos.SearchResponse.getDefaultInstance()) return this;
+        if (other.hasCount()) {
+          setCount(other.getCount());
+        }
         if (itemBuilder_ == null) {
           if (!other.item_.isEmpty()) {
             if (item_.isEmpty()) {
               item_ = other.item_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureItemIsMutable();
               item_.addAll(other.item_);
@@ -411,7 +464,7 @@ public final class SearchProtos {
               itemBuilder_.dispose();
               itemBuilder_ = null;
               item_ = other.item_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
               itemBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getItemFieldBuilder() : null;
@@ -425,6 +478,10 @@ public final class SearchProtos {
       }
 
       public final boolean isInitialized() {
+        if (!hasCount()) {
+          
+          return false;
+        }
         for (int i = 0; i < getItemCount(); i++) {
           if (!getItem(i).isInitialized()) {
             
@@ -453,12 +510,44 @@ public final class SearchProtos {
       }
       private int bitField0_;
 
+      private int count_ ;
+      /**
+       * <code>required int32 count = 1;</code>
+       */
+      public boolean hasCount() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 count = 1;</code>
+       */
+      public int getCount() {
+        return count_;
+      }
+      /**
+       * <code>required int32 count = 1;</code>
+       */
+      public Builder setCount(int value) {
+        bitField0_ |= 0x00000001;
+        count_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 count = 1;</code>
+       */
+      public Builder clearCount() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        count_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item> item_ =
         java.util.Collections.emptyList();
       private void ensureItemIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
           item_ = new java.util.ArrayList<com.sape.xi2014.search.entity.SearchProtos.Item>(item_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -466,7 +555,7 @@ public final class SearchProtos {
           com.sape.xi2014.search.entity.SearchProtos.Item, com.sape.xi2014.search.entity.SearchProtos.Item.Builder, com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder> itemBuilder_;
 
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item> getItemList() {
         if (itemBuilder_ == null) {
@@ -476,7 +565,7 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public int getItemCount() {
         if (itemBuilder_ == null) {
@@ -486,7 +575,7 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public com.sape.xi2014.search.entity.SearchProtos.Item getItem(int index) {
         if (itemBuilder_ == null) {
@@ -496,7 +585,7 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder setItem(
           int index, com.sape.xi2014.search.entity.SearchProtos.Item value) {
@@ -513,7 +602,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder setItem(
           int index, com.sape.xi2014.search.entity.SearchProtos.Item.Builder builderForValue) {
@@ -527,7 +616,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder addItem(com.sape.xi2014.search.entity.SearchProtos.Item value) {
         if (itemBuilder_ == null) {
@@ -543,7 +632,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder addItem(
           int index, com.sape.xi2014.search.entity.SearchProtos.Item value) {
@@ -560,7 +649,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder addItem(
           com.sape.xi2014.search.entity.SearchProtos.Item.Builder builderForValue) {
@@ -574,7 +663,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder addItem(
           int index, com.sape.xi2014.search.entity.SearchProtos.Item.Builder builderForValue) {
@@ -588,7 +677,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder addAllItem(
           java.lang.Iterable<? extends com.sape.xi2014.search.entity.SearchProtos.Item> values) {
@@ -603,12 +692,12 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder clearItem() {
         if (itemBuilder_ == null) {
           item_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           itemBuilder_.clear();
@@ -616,7 +705,7 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public Builder removeItem(int index) {
         if (itemBuilder_ == null) {
@@ -629,14 +718,14 @@ public final class SearchProtos {
         return this;
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public com.sape.xi2014.search.entity.SearchProtos.Item.Builder getItemBuilder(
           int index) {
         return getItemFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder getItemOrBuilder(
           int index) {
@@ -646,7 +735,7 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public java.util.List<? extends com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder> 
            getItemOrBuilderList() {
@@ -657,14 +746,14 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public com.sape.xi2014.search.entity.SearchProtos.Item.Builder addItemBuilder() {
         return getItemFieldBuilder().addBuilder(
             com.sape.xi2014.search.entity.SearchProtos.Item.getDefaultInstance());
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public com.sape.xi2014.search.entity.SearchProtos.Item.Builder addItemBuilder(
           int index) {
@@ -672,7 +761,7 @@ public final class SearchProtos {
             index, com.sape.xi2014.search.entity.SearchProtos.Item.getDefaultInstance());
       }
       /**
-       * <code>repeated .searchservice.Item item = 1;</code>
+       * <code>repeated .searchservice.Item item = 2;</code>
        */
       public java.util.List<com.sape.xi2014.search.entity.SearchProtos.Item.Builder> 
            getItemBuilderList() {
@@ -685,7 +774,7 @@ public final class SearchProtos {
           itemBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.sape.xi2014.search.entity.SearchProtos.Item, com.sape.xi2014.search.entity.SearchProtos.Item.Builder, com.sape.xi2014.search.entity.SearchProtos.ItemOrBuilder>(
                   item_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
           item_ = null;
@@ -1201,18 +1290,18 @@ public final class SearchProtos {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
-    boolean hasListingId();
+    boolean hasId();
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
-    java.lang.String getListingId();
+    java.lang.String getId();
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
     com.google.protobuf.ByteString
-        getListingIdBytes();
+        getIdBytes();
 
     /**
      * <code>optional string state = 2;</code>
@@ -1243,32 +1332,32 @@ public final class SearchProtos {
         getUserIdBytes();
 
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
-    boolean hasTitle();
+    boolean hasDescription();
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
-    java.lang.String getTitle();
+    java.lang.String getDescription();
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
     com.google.protobuf.ByteString
-        getTitleBytes();
+        getDescriptionBytes();
 
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
-    boolean hasListingUrl();
+    boolean hasUrl();
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
-    java.lang.String getListingUrl();
+    java.lang.String getUrl();
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
     com.google.protobuf.ByteString
-        getListingUrlBytes();
+        getUrlBytes();
   }
   /**
    * Protobuf type {@code searchservice.Item}
@@ -1329,7 +1418,7 @@ public final class SearchProtos {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              listingId_ = bs;
+              id_ = bs;
               break;
             }
             case 18: {
@@ -1344,16 +1433,16 @@ public final class SearchProtos {
               userId_ = bs;
               break;
             }
-            case 42: {
+            case 34: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              title_ = bs;
+              description_ = bs;
               break;
             }
-            case 50: {
+            case 42: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              listingUrl_ = bs;
+              url_ = bs;
               break;
             }
           }
@@ -1396,19 +1485,19 @@ public final class SearchProtos {
     }
 
     private int bitField0_;
-    public static final int LISTING_ID_FIELD_NUMBER = 1;
-    private java.lang.Object listingId_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private java.lang.Object id_;
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
-    public boolean hasListingId() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
-    public java.lang.String getListingId() {
-      java.lang.Object ref = listingId_;
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -1416,22 +1505,22 @@ public final class SearchProtos {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          listingId_ = s;
+          id_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string listing_id = 1;</code>
+     * <code>required string id = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getListingIdBytes() {
-      java.lang.Object ref = listingId_;
+        getIdBytes() {
+      java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        listingId_ = b;
+        id_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1522,19 +1611,19 @@ public final class SearchProtos {
       }
     }
 
-    public static final int TITLE_FIELD_NUMBER = 5;
-    private java.lang.Object title_;
+    public static final int DESCRIPTION_FIELD_NUMBER = 4;
+    private java.lang.Object description_;
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
-    public boolean hasTitle() {
+    public boolean hasDescription() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
-    public java.lang.String getTitle() {
-      java.lang.Object ref = title_;
+    public java.lang.String getDescription() {
+      java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -1542,41 +1631,41 @@ public final class SearchProtos {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          title_ = s;
+          description_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string title = 5;</code>
+     * <code>optional string description = 4;</code>
      */
     public com.google.protobuf.ByteString
-        getTitleBytes() {
-      java.lang.Object ref = title_;
+        getDescriptionBytes() {
+      java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        title_ = b;
+        description_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int LISTING_URL_FIELD_NUMBER = 6;
-    private java.lang.Object listingUrl_;
+    public static final int URL_FIELD_NUMBER = 5;
+    private java.lang.Object url_;
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
-    public boolean hasListingUrl() {
+    public boolean hasUrl() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
-    public java.lang.String getListingUrl() {
-      java.lang.Object ref = listingUrl_;
+    public java.lang.String getUrl() {
+      java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -1584,22 +1673,22 @@ public final class SearchProtos {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          listingUrl_ = s;
+          url_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string listing_url = 6;</code>
+     * <code>optional string url = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getListingUrlBytes() {
-      java.lang.Object ref = listingUrl_;
+        getUrlBytes() {
+      java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        listingUrl_ = b;
+        url_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1607,11 +1696,11 @@ public final class SearchProtos {
     }
 
     private void initFields() {
-      listingId_ = "";
+      id_ = "";
       state_ = "";
       userId_ = "";
-      title_ = "";
-      listingUrl_ = "";
+      description_ = "";
+      url_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1619,7 +1708,7 @@ public final class SearchProtos {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasListingId()) {
+      if (!hasId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1631,7 +1720,7 @@ public final class SearchProtos {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getListingIdBytes());
+        output.writeBytes(1, getIdBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getStateBytes());
@@ -1640,10 +1729,10 @@ public final class SearchProtos {
         output.writeBytes(3, getUserIdBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(5, getTitleBytes());
+        output.writeBytes(4, getDescriptionBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(6, getListingUrlBytes());
+        output.writeBytes(5, getUrlBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1656,7 +1745,7 @@ public final class SearchProtos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getListingIdBytes());
+          .computeBytesSize(1, getIdBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1668,11 +1757,11 @@ public final class SearchProtos {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getTitleBytes());
+          .computeBytesSize(4, getDescriptionBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getListingUrlBytes());
+          .computeBytesSize(5, getUrlBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1795,15 +1884,15 @@ public final class SearchProtos {
 
       public Builder clear() {
         super.clear();
-        listingId_ = "";
+        id_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         state_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         userId_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        title_ = "";
+        description_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        listingUrl_ = "";
+        url_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
@@ -1836,7 +1925,7 @@ public final class SearchProtos {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.listingId_ = listingId_;
+        result.id_ = id_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -1848,11 +1937,11 @@ public final class SearchProtos {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.title_ = title_;
+        result.description_ = description_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.listingUrl_ = listingUrl_;
+        result.url_ = url_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1869,9 +1958,9 @@ public final class SearchProtos {
 
       public Builder mergeFrom(com.sape.xi2014.search.entity.SearchProtos.Item other) {
         if (other == com.sape.xi2014.search.entity.SearchProtos.Item.getDefaultInstance()) return this;
-        if (other.hasListingId()) {
+        if (other.hasId()) {
           bitField0_ |= 0x00000001;
-          listingId_ = other.listingId_;
+          id_ = other.id_;
           onChanged();
         }
         if (other.hasState()) {
@@ -1884,14 +1973,14 @@ public final class SearchProtos {
           userId_ = other.userId_;
           onChanged();
         }
-        if (other.hasTitle()) {
+        if (other.hasDescription()) {
           bitField0_ |= 0x00000008;
-          title_ = other.title_;
+          description_ = other.description_;
           onChanged();
         }
-        if (other.hasListingUrl()) {
+        if (other.hasUrl()) {
           bitField0_ |= 0x00000010;
-          listingUrl_ = other.listingUrl_;
+          url_ = other.url_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -1899,7 +1988,7 @@ public final class SearchProtos {
       }
 
       public final boolean isInitialized() {
-        if (!hasListingId()) {
+        if (!hasId()) {
           
           return false;
         }
@@ -1925,24 +2014,24 @@ public final class SearchProtos {
       }
       private int bitField0_;
 
-      private java.lang.Object listingId_ = "";
+      private java.lang.Object id_ = "";
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public boolean hasListingId() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public java.lang.String getListingId() {
-        java.lang.Object ref = listingId_;
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            listingId_ = s;
+            id_ = s;
           }
           return s;
         } else {
@@ -1950,53 +2039,53 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getListingIdBytes() {
-        java.lang.Object ref = listingId_;
+          getIdBytes() {
+        java.lang.Object ref = id_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          listingId_ = b;
+          id_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public Builder setListingId(
+      public Builder setId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        listingId_ = value;
+        id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public Builder clearListingId() {
+      public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        listingId_ = getDefaultInstance().getListingId();
+        id_ = getDefaultInstance().getId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string listing_id = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public Builder setListingIdBytes(
+      public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        listingId_ = value;
+        id_ = value;
         onChanged();
         return this;
       }
@@ -2153,24 +2242,24 @@ public final class SearchProtos {
         return this;
       }
 
-      private java.lang.Object title_ = "";
+      private java.lang.Object description_ = "";
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
-      public boolean hasTitle() {
+      public boolean hasDescription() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
-      public java.lang.String getTitle() {
-        java.lang.Object ref = title_;
+      public java.lang.String getDescription() {
+        java.lang.Object ref = description_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            title_ = s;
+            description_ = s;
           }
           return s;
         } else {
@@ -2178,75 +2267,75 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
       public com.google.protobuf.ByteString
-          getTitleBytes() {
-        java.lang.Object ref = title_;
+          getDescriptionBytes() {
+        java.lang.Object ref = description_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          title_ = b;
+          description_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
-      public Builder setTitle(
+      public Builder setDescription(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000008;
-        title_ = value;
+        description_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
-      public Builder clearTitle() {
+      public Builder clearDescription() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        title_ = getDefaultInstance().getTitle();
+        description_ = getDefaultInstance().getDescription();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string title = 5;</code>
+       * <code>optional string description = 4;</code>
        */
-      public Builder setTitleBytes(
+      public Builder setDescriptionBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000008;
-        title_ = value;
+        description_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object listingUrl_ = "";
+      private java.lang.Object url_ = "";
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
-      public boolean hasListingUrl() {
+      public boolean hasUrl() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
-      public java.lang.String getListingUrl() {
-        java.lang.Object ref = listingUrl_;
+      public java.lang.String getUrl() {
+        java.lang.Object ref = url_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            listingUrl_ = s;
+            url_ = s;
           }
           return s;
         } else {
@@ -2254,53 +2343,53 @@ public final class SearchProtos {
         }
       }
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getListingUrlBytes() {
-        java.lang.Object ref = listingUrl_;
+          getUrlBytes() {
+        java.lang.Object ref = url_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          listingUrl_ = b;
+          url_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
-      public Builder setListingUrl(
+      public Builder setUrl(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000010;
-        listingUrl_ = value;
+        url_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
-      public Builder clearListingUrl() {
+      public Builder clearUrl() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        listingUrl_ = getDefaultInstance().getListingUrl();
+        url_ = getDefaultInstance().getUrl();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string listing_url = 6;</code>
+       * <code>optional string url = 5;</code>
        */
-      public Builder setListingUrlBytes(
+      public Builder setUrlBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000010;
-        listingUrl_ = value;
+        url_ = value;
         onChanged();
         return this;
       }
@@ -2340,13 +2429,13 @@ public final class SearchProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014search.proto\022\rsearchservice\"3\n\016SearchR" +
-      "esponse\022!\n\004item\030\001 \003(\0132\023.searchservice.It" +
-      "em\"$\n\rSearchRequest\022\023\n\013search_term\030\001 \002(\t" +
-      "\"^\n\004Item\022\022\n\nlisting_id\030\001 \002(\t\022\r\n\005state\030\002 " +
-      "\001(\t\022\017\n\007user_id\030\003 \001(\t\022\r\n\005title\030\005 \001(\t\022\023\n\013l" +
-      "isting_url\030\006 \001(\tB-\n\035com.sape.xi2014.sear" +
-      "ch.entityB\014SearchProtos"
+      "\n\014search.proto\022\rsearchservice\"B\n\016SearchR" +
+      "esponse\022\r\n\005count\030\001 \002(\005\022!\n\004item\030\002 \003(\0132\023.s" +
+      "earchservice.Item\"$\n\rSearchRequest\022\023\n\013se" +
+      "arch_term\030\001 \002(\t\"T\n\004Item\022\n\n\002id\030\001 \002(\t\022\r\n\005s" +
+      "tate\030\002 \001(\t\022\017\n\007user_id\030\003 \001(\t\022\023\n\013descripti" +
+      "on\030\004 \001(\t\022\013\n\003url\030\005 \001(\tB-\n\035com.sape.xi2014" +
+      ".search.entityB\014SearchProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2365,7 +2454,7 @@ public final class SearchProtos {
     internal_static_searchservice_SearchResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_searchservice_SearchResponse_descriptor,
-        new java.lang.String[] { "Item", });
+        new java.lang.String[] { "Count", "Item", });
     internal_static_searchservice_SearchRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_searchservice_SearchRequest_fieldAccessorTable = new
@@ -2377,7 +2466,7 @@ public final class SearchProtos {
     internal_static_searchservice_Item_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_searchservice_Item_descriptor,
-        new java.lang.String[] { "ListingId", "State", "UserId", "Title", "ListingUrl", });
+        new java.lang.String[] { "Id", "State", "UserId", "Description", "Url", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

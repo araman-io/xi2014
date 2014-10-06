@@ -5,7 +5,8 @@ option java_outer_classname = "SearchProtos";
 
 //the uber container
 message SearchResponse {
-    repeated Item item = 1;
+    required int32 count = 1;
+    repeated Item item = 2;
 }
 
 // the search request
@@ -15,10 +16,10 @@ message SearchRequest {
 
 //the item on the grid
 message Item {
-    required string listing_id = 1;
+    required string id = 1;
     optional string state = 2;
     optional string user_id = 3;
-    optional string title = 5;
-    optional string listing_url = 6; 
+    optional string description = 4;
+    optional string url = 5; 
 }
 

@@ -1,6 +1,8 @@
 package com.sape.xi2014.search;
 
-import static spark.Spark.get;
+import static spark.Spark.*;
+
+import javax.servlet.ServletOutputStream;
 
 import com.sape.xi2014.search.entity.SearchProtos;
 import com.sape.xi2014.search.entity.SearchProtos.SearchRequest;
@@ -12,17 +14,41 @@ import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 public class App {
 
   public static void main(String[] args) {
-    get("/hello-search", (req, res) -> "hello world from the search service");
     
-    get("/search/bykeyword", (request, response) -> { 
-      SearchRequest searchRequest = SearchProtos.SearchRequest.newBuilder().setSearchTerm(request.queryParams("searchTerm")).build();
-      response.type("application/x-protobuf");
-      SearchResponse searchResults = SearchService.INSTANCE.getSearchResults(searchRequest);
-      
-      System.out.println(searchResults);
-      
-      return searchResults;
-    });
+    staticFileLocation("/resources");
+    
+    get("/hello-search", (req, res) -> "hello world from the search service");
+
+    get("/search/bykeyword",
+        (request, response) -> {
+
+          Object returnValue = null;
+          String outputAs = request.queryParams("as") == null ? "protobuf" : request.queryParams("as");
+
+          try {
+            // build a search request
+            SearchRequest searchRequest =
+                SearchProtos.SearchRequest.newBuilder().setSearchTerm(request.queryParams("searchTerm")).build();
+
+            SearchResponse searchResults = SearchService.INSTANCE.getSearchResults(searchRequest);
+
+            if (outputAs.equals("protobuf")) {
+              // set the response type
+              response.type("application/x-protobuf");
+              ServletOutputStream outputStream = response.raw().getOutputStream();
+              searchResults.writeTo(outputStream);
+              outputStream.close();
+            } else {
+              returnValue = searchResults;
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("encountered an exception while trying to serve searchrequest", e);
+          }
+
+          return returnValue;
+        });
+
   }
-  
+
 }
