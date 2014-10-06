@@ -1,9 +1,7 @@
 package com.sape.xi2014.flow.c.frpwithmicrosvc;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -16,7 +14,6 @@ import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.SearchServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
-import com.sun.javafx.collections.MappingChange.Map;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 
@@ -28,7 +25,6 @@ public class ReactiveServiceMediatorTest {
 
   String SEARCH_TERM = "shoes";
 
-  @Test
   public void testSearchResultsAsTiles() throws Exception {
     Observable<Tiles> tiles = null;
 
@@ -80,10 +76,14 @@ public class ReactiveServiceMediatorTest {
     Gson gson = new Gson();
 
     searchTile.flatMap(t -> {
-      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId())
-              .map(r -> { t.setReviews(r); return t; });
+      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId()).map(r -> {
+        t.setReviews(r);
+        return t;
+      });
       return tileWithReview;
-    }).subscribe(o -> {System.out.println(gson.toJson(o));});
+    }).subscribe(o -> {
+      System.out.println(gson.toJson(o));
+    });
   }
 
 
@@ -94,14 +94,47 @@ public class ReactiveServiceMediatorTest {
     List<Tile> allTiles = new ArrayList<Tile>();
 
     searchTile.flatMap(t -> {
-      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId())
-              .map(r -> { t.setReviews(r); return t; });
+      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId()).map(r -> {
+        t.setReviews(r);
+        return t;
+      });
       return tileWithReview;
-    }).subscribe(e -> {allTiles.add(e);});
-    
+    }).subscribe(e -> {
+      allTiles.add(e);
+    });
+
     System.out.println(allTiles.size());
     System.out.println(gson.toJson(allTiles));
-    
+
   }
 
+  @Test
+  public void alternateImplementationToShouldReturnListOfTileFromObservableSearchClient() throws Exception {
+    Observable<Tile> searchTile = searchClient.getSearchResults(SEARCH_TERM);
+    Gson gson = new Gson();
+    List<Tile> allTiles = new ArrayList<Tile>();
+
+    searchTile.flatMap(t -> {
+      Observable<Reviews> reviews = reviewClient.getSellerReviews(t.getSellerId());
+      Observable<String> imageUrl = reviewClient.getProductImage(t.getProductId());
+
+      return Observable.merge(reviews, imageUrl).flatMap(o -> {
+        if (o instanceof String) {
+          t.setImageUrl((String) o);
+        } else {
+          t.setReviews((Reviews) o);
+        }
+        
+        return Observable.just(t);
+      });
+      
+    }).subscribe(e -> {
+      allTiles.add((Tile) e);
+    });
+
+    System.out.println(allTiles.size());
+    System.out.println(gson.toJson(allTiles));
+
+  }
+  
 }

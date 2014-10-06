@@ -1,6 +1,9 @@
 package com.sape.xi2014.reviews;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
+
+import com.sun.org.apache.regexp.internal.recompile;
 
 public class ReviewService {
 
@@ -20,11 +23,13 @@ public class ReviewService {
         Request
             .Get(
                 "https://openapi.etsy.com/v2/users/".concat(sellerId).concat("/feedback/as-seller?api_key=")
-                    .concat(API_KEY)).execute().returnContent().asString();
+                    .concat(API_KEY)).execute().returnContent()
+            .asString();
+
     return etsyResponse;
 
   }
-  
+
   /**
    * 
    * @param productID
@@ -32,14 +37,13 @@ public class ReviewService {
    * @throws Exception
    */
   public String getProductImages(String productID) throws Exception {
-	    String etsyResponse = null;
-	    etsyResponse =
-	        Request
-	            .Get(
-	                "https://openapi.etsy.com/v2/listings/".concat(productID).concat("/images?&api_key=")
-	                    .concat(API_KEY)).execute().returnContent().asString();
-	    return etsyResponse;
+    String etsyResponse = null;
+    etsyResponse =
+        Request
+            .Get("https://openapi.etsy.com/v2/listings/".concat(productID).concat("/images?&api_key=").concat(API_KEY))
+            .execute().returnContent().asString();
+    return etsyResponse;
 
-	  }
-  
+  }
+
 }

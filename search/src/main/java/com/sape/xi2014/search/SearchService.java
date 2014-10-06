@@ -3,6 +3,7 @@ package com.sape.xi2014.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
@@ -24,7 +25,8 @@ public class SearchService {
     SearchResponse searchResponse = null;
 
     etsyResponse =
-        Request.Get(
+        Request
+            .Get(
                 "https://openapi.etsy.com/v2/listings/active?api_key=".concat(API_KEY).concat("&keywords=")
                     .concat(searchRequest.getSearchTerm())).execute().returnContent().asString();
 
@@ -42,8 +44,9 @@ public class SearchService {
     List<Item> itemList = new ArrayList<Item>();
 
     for (Result result : response.getResults()) {
-      Item i = Item.newBuilder().setId(result.getListing_id()).setState(result.getState())
-          .setDescription(result.getTitle()).setUserId(result.getUser_id()).setUrl(result.getUrl()).build();
+      Item i =
+          Item.newBuilder().setId(result.getListing_id()).setState(result.getState()).setDescription(result.getTitle())
+              .setUserId(result.getUser_id()).setUrl(result.getUrl()).build();
 
       itemList.add(i);
     }
