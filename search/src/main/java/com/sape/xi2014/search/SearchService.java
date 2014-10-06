@@ -1,12 +1,17 @@
 package com.sape.xi2014.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.client.fluent.Request;
 
+import com.google.gson.Gson;
 import com.sape.xi2014.search.entity.SearchProtos;
 import com.sape.xi2014.search.entity.SearchProtos.Item;
 import com.sape.xi2014.search.entity.SearchProtos.SearchRequest;
 import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
-import com.sape.xi2014.search.entity.SearchProtos.SearchResponseOrBuilder;
+import com.sape.xi2014.search.etsy.EtsySearchResponse;
+import com.sape.xi2014.search.etsy.Result;
 
 public class SearchService {
 
@@ -25,14 +30,28 @@ public class SearchService {
                 .concat(searchRequest.getSearchTerm()))
                 .execute().returnContent().asString();
       
-      searchResponse = SearchProtos.SearchResponse.newBuilder().addItem(Item.newBuilder().setListingId(serviceResponse).build()).build();
+     // searchResponse = SearchProtos.SearchResponse.newBuilder().addItem(Item.newBuilder().setListingId(serviceResponse).build()).build();
       
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
-    return searchResponse;
+    //searchResponse
+    return mapSearchResponse(serviceResponse);
 
+  }
+  
+  
+  public SearchResponse mapSearchResponse(String searchResponse) {
+	  Gson json = new Gson();
+	  EtsySearchResponse response = json.fromJson(searchResponse, EtsySearchResponse.class);
+	  
+	  
+	  List<Item> itemList = new ArrayList<Item>();
+	  for(Result result: response.getResultlst()) {
+		 itemList.add(Item.newBuilder().setListingId(result.getListing_id()).setState(result.getState()).setTitle(result.getTitle())
+		  .setUserId(result.getUser_id()).setListingUrl(result.getUrl()).build());
+	  }
+	  return SearchProtos.SearchResponse.newBuilder().addAllItem(itemList).build();
   }
 
 }
