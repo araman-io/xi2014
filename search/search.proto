@@ -1,0 +1,24 @@
+package searchservice;
+
+option java_package = "com.sape.xi2014.search.entity";
+option java_outer_classname = "SearchProtos";
+
+//the uber container
+message SearchResponse {
+    repeated Item item = 1;
+}
+
+// the search request
+message SearchRequest {
+    required string search_term = 1;
+}
+
+//the item on the grid
+message Item {
+    required string listing_id = 1;
+    optional string state = 2;
+    optional string user_id = 3;
+    optional string title = 5;
+    optional string listing_url = 6; 
+}
+
