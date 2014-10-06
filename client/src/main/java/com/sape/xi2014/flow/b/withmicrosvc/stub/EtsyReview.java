@@ -1,4 +1,4 @@
-package com.sape.xi2014.client.stub;
+package com.sape.xi2014.flow.b.withmicrosvc.stub;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.sape.xi2014.client.entity;
+package com.sape.xi2014.entity;
 
 public class Tile {
   String productId;

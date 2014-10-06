@@ -1,12 +1,12 @@
-package com.sape.xi2014.client;
+package com.sape.xi2014.flow.b.withmicrosvc;
 
 import com.google.gson.Gson;
-import com.sape.xi2014.client.entity.ClientReponse;
-import com.sape.xi2014.client.entity.Reviews;
-import com.sape.xi2014.client.entity.Tile;
-import com.sape.xi2014.client.entity.Tiles;
-import com.sape.xi2014.client.stub.ReviewServiceClient;
-import com.sape.xi2014.client.stub.SearchServiceClient;
+import com.sape.xi2014.entity.ClientReponse;
+import com.sape.xi2014.entity.Reviews;
+import com.sape.xi2014.entity.Tile;
+import com.sape.xi2014.entity.Tiles;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.ReviewServiceClient;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.SearchServiceClient;
 
 public class ImperativeServiceMediator implements ServiceMediator {
 

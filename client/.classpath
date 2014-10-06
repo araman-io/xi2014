@@ -2,6 +2,7 @@
 <classpath>
   <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.11/junit-4.11.jar"/>
@@ -28,4 +29,5 @@
   <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient-cache/4.3.5/httpclient-cache-4.3.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/protobuf/protobuf-java/2.6.0/protobuf-java-2.6.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/1.4/gson-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/reactivex/rxjava/1.0.0-rc.3/rxjava-1.0.0-rc.3.jar"/>
 </classpath>

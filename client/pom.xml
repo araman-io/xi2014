@@ -44,5 +44,10 @@
 			<artifactId>gson</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>1.0.0-rc.3</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,6 +1,6 @@
-package com.sape.xi2014.client;
+package com.sape.xi2014.flow.b.withmicrosvc;
 
-import com.sape.xi2014.client.entity.ClientReponse;
+import com.sape.xi2014.entity.ClientReponse;
 
 public interface ServiceMediator {
   

@@ -1,4 +1,4 @@
-package com.sape.xi2014.client.stub;
+package com.sape.xi2014.flow.b.withmicrosvc.stub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
-import com.sape.xi2014.client.entity.Reviews;
+import com.sape.xi2014.entity.Reviews;
 
 public class ReviewServiceClient {
 

@@ -1,4 +1,4 @@
-package com.sape.xi2014.client.stub;
+package com.sape.xi2014.flow.b.withmicrosvc.stub;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.http.client.fluent.Request;
 
-import com.sape.xi2014.client.entity.Tile;
-import com.sape.xi2014.client.entity.Tiles;
+import com.sape.xi2014.entity.Tile;
+import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.search.entity.SearchProtos.Item;
 import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 
