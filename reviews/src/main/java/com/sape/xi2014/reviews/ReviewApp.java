@@ -29,6 +29,21 @@ public class ReviewApp {
 
       return returnValue;
     });
+    
+    
+    get("/listing/images", (request, response) -> {
+    	Object returnValue = null;
+        String productId = null;
+        try {
+          productId = request.queryParams("productId");
+          returnValue = ReviewService.INSTANCE.getProductImages(productId);
+        } catch (Exception e) {
+          e.printStackTrace();
+          throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
+        }
+
+        return returnValue;
+      });
 
   }
 
