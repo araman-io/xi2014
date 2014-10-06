@@ -7,7 +7,7 @@ public class Tile {
   String description;
   String url;
   String imageUrl;
-  
+
 
   Reviews reviews;
 
@@ -59,12 +59,19 @@ public class Tile {
     this.reviews = reviews;
   }
 
-public String getImageUrl() {
-	return imageUrl;
-}
+  public String getImageUrl() {
+    return imageUrl;
+  }
 
-public void setImageUrl(String imageUrl) {
-	this.imageUrl = imageUrl;
-}
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  @Override
+  public String toString() {
+    return "Tile [productId=" + productId + ", state=" + state + ", sellerId=" + sellerId + ", description="
+        + description + ", url=" + url + ", imageUrl=" + imageUrl + ", reviews=" + reviews + "]";
+  }
+
 
 }
