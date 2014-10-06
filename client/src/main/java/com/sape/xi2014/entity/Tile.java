@@ -6,6 +6,8 @@ public class Tile {
   String sellerId;
   String description;
   String url;
+  String imageUrl;
+  
 
   Reviews reviews;
 
@@ -56,5 +58,13 @@ public class Tile {
   public void setReviews(Reviews reviews) {
     this.reviews = reviews;
   }
+
+public String getImageUrl() {
+	return imageUrl;
+}
+
+public void setImageUrl(String imageUrl) {
+	this.imageUrl = imageUrl;
+}
 
 }

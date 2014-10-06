@@ -22,8 +22,11 @@ public class ImperativeServiceMediator implements ServiceMediator {
     for (Tile t : searchResults.getTiles()) {
       Reviews sellerReviews = reviewClient.getSellerReviews(t.getSellerId());
       t.setReviews(sellerReviews);
+      
+      String imageUrl = reviewClient.getProductImage(t.getProductId());
+      t.setImageUrl(imageUrl);
     }
-
+    
     clientResponse.setTiles(searchResults);
 
     return clientResponse;
@@ -31,7 +34,6 @@ public class ImperativeServiceMediator implements ServiceMediator {
 
   public static void main(String[] args) throws Exception {
     ClientReponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
-
     Gson j = new Gson();
     System.out.println(j.toJson(aggregatedResponse));
   }

@@ -7,6 +7,7 @@ import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
 import com.sape.xi2014.entity.Reviews;
+import com.sun.scenario.effect.impl.prism.PrDrawable;
 
 public class ReviewServiceClient {
 
@@ -32,4 +33,22 @@ public class ReviewServiceClient {
     return reviews;
 
   }
+  
+  public String getProductImage(String productId) throws Exception {
+	  	
+	    String response =
+	        Request.Get("http://localhost:4568/listing/images?productId=".concat(productId)).execute().returnContent()
+	            .asString();
+
+	    Gson json = new Gson();
+
+	    EtsyImage productImage = json.fromJson(response, EtsyImage.class);
+	    
+	    for (ImgResult r : productImage.getResults()) {
+	      return r.getUrl_fullxfull();
+	    }
+
+	    return "";
+
+	  }
 }
