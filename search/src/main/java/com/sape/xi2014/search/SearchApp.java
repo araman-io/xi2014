@@ -11,11 +11,9 @@ import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 /**
  * App for SearchService
  */
-public class App {
+public class SearchApp {
 
   public static void main(String[] args) {
-    
-    staticFileLocation("/resources");
     
     get("/hello-search", (req, res) -> "hello world from the search service");
 
