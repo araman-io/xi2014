@@ -1,7 +1,7 @@
 package com.sape.xi2014.flow.b.withmicrosvc;
 
 import com.google.gson.Gson;
-import com.sape.xi2014.entity.ClientReponse;
+import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
@@ -14,9 +14,9 @@ public class ImperativeServiceMediator implements ServiceMediator {
   ReviewServiceClient reviewClient = new ReviewServiceClient();
 
   @Override
-  public ClientReponse getAggregatedResponse(String searchTerm) throws Exception {
+  public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
 
-    ClientReponse clientResponse = new ClientReponse();
+    ClientResponse clientResponse = new ClientResponse();
 
     Tiles searchResults = searchClient.getSearchResults(searchTerm);
     for (Tile t : searchResults.getTiles()) {
@@ -33,7 +33,7 @@ public class ImperativeServiceMediator implements ServiceMediator {
   }
 
   public static void main(String[] args) throws Exception {
-    ClientReponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
+    ClientResponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
     Gson j = new Gson();
     System.out.println(j.toJson(aggregatedResponse));
   }

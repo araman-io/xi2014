@@ -60,8 +60,9 @@ public class SearchService {
     List<Item> itemList = new ArrayList<Item>();
 
     for (Result result : response.getResults()) {
-      Item i = Item.newBuilder().setId(result.getListing_id()).setState(result.getState())
-          .setDescription(result.getTitle()).setUserId(result.getUser_id()).setUrl(result.getUrl()).build();
+      Item i =
+          Item.newBuilder().setId(result.getListing_id()).setState(result.getState()).setDescription(result.getTitle())
+              .setUserId(result.getUser_id()).setUrl(result.getUrl()).build();
 
       itemList.add(i);
     }

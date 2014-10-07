@@ -7,8 +7,6 @@ public class Tile {
   String description;
   String url;
   String imageUrl;
-
-
   Reviews reviews;
 
   public String getProductId() {

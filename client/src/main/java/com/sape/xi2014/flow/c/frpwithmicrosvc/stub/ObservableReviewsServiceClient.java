@@ -6,11 +6,11 @@ import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.ReviewServiceClient;
 
 public class ObservableReviewsServiceClient {
-  
+
+  ReviewServiceClient basicReviewsClient = new ReviewServiceClient();
+
   public Observable<Reviews> getSellerReviews(String sellerId) {
-    
-    ReviewServiceClient basicReviewsClient = new ReviewServiceClient();
-    
+
     Observable<Reviews> r = Observable.create(subscriber -> {
       try {
         Reviews sellerReviews = basicReviewsClient.getSellerReviews(sellerId);
@@ -19,8 +19,22 @@ public class ObservableReviewsServiceClient {
         e.printStackTrace();
       }
     });
-    
+
     return r;
+  }
+
+  public Observable<String> getProductImage(String productId) {
+    Observable<String> productImageUrl = Observable.create(subscriber -> {
+      String url = null;
+      try {
+        url = basicReviewsClient.getProductImage(productId);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      subscriber.onNext(url);
+
+    });
+    return productImageUrl;
   }
 
 }

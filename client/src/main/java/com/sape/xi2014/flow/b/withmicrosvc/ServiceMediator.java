@@ -1,9 +1,9 @@
 package com.sape.xi2014.flow.b.withmicrosvc;
 
-import com.sape.xi2014.entity.ClientReponse;
+import com.sape.xi2014.entity.ClientResponse;
 
 public interface ServiceMediator {
   
-  public ClientReponse getAggregatedResponse(String searchTerm) throws Exception;
+  public ClientResponse getAggregatedResponse(String searchTerm) throws Exception;
 
 }

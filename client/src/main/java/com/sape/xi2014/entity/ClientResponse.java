@@ -1,7 +1,7 @@
 package com.sape.xi2014.entity;
 
 
-public class ClientReponse {
+public class ClientResponse {
 
   Tiles tiles;
 
