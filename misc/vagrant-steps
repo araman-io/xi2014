@@ -1,0 +1,5 @@
+vagrant plugin install vagrant-proxyconf
+
+vagrant init
+
+edit Vagrantfile
