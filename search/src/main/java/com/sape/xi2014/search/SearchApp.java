@@ -14,6 +14,9 @@ import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 public class SearchApp {
 
   public static void main(String[] args) {
+	  
+	String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
+	System.out.println("Mode " + mode);  
     
     get("/hello-search", (req, res) -> "hello world from the search service");
 

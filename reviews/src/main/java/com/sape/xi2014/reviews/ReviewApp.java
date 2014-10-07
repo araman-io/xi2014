@@ -10,6 +10,9 @@ public class ReviewApp {
 
 	public static void main(String[] args) {
 
+		String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
+		System.out.println("Mode " + mode);
+		
 		setPort(4568);
 
 		get("/hello-reviews", (req, res) -> "hello world from the review service");
