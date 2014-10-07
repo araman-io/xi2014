@@ -25,7 +25,6 @@ public class SearchService {
     SearchResponse searchResponse = null;
 
     String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
-	//System.out.println("Mode " + mode);
 
 	switch (mode) {
 	case "proxy":

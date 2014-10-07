@@ -18,7 +18,6 @@ public class ReviewService {
 	public String getSellerReviews(String sellerId) throws Exception {
 		String etsyResponse = null;
 		String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
-		//System.out.println("Mode " + mode);
 		switch (mode) {
 		case "proxy":
 			etsyResponse = Request
@@ -51,7 +50,6 @@ public class ReviewService {
   public String getProductImages(String productID) throws Exception {
 	    String etsyResponse = null;
 		String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
-		System.out.println("Mode " + mode);
 		switch (mode) {
 		case "proxy":
 			etsyResponse =
