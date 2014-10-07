@@ -35,7 +35,7 @@ public class ImperativeServiceMediator implements ServiceMediator {
   public static void main(String[] args) throws Exception {
     ClientResponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
     Gson j = new Gson();
-    System.out.println(j.toJson(aggregatedResponse));
+    System.out.println(j.toJson(aggregatedResponse.getTiles().getTiles()));
   }
 
 }
