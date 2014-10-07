@@ -3,6 +3,7 @@ package com.sape.xi2014.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
@@ -23,11 +24,28 @@ public class SearchService {
     String etsyResponse = null;
     SearchResponse searchResponse = null;
 
-    etsyResponse =
+    String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
+	System.out.println("Mode " + mode);
+
+	switch (mode) {
+	case "proxy":
+		etsyResponse =
+        Request.Get(
+                "https://openapi.etsy.com/v2/listings/active?api_key=".concat(API_KEY).concat("&keywords=")
+                    .concat(searchRequest.getSearchTerm())).viaProxy(new HttpHost("localhost", 8888, "http")).execute().returnContent().asString();
+		break;
+	case "apiary":
+		etsyResponse = Request.Get("http://sagarprasad.apiary-mock.com/listing").execute()
+				.returnContent().asString();
+		break;
+	case "esty":
+	default:
+		etsyResponse =
         Request.Get(
                 "https://openapi.etsy.com/v2/listings/active?api_key=".concat(API_KEY).concat("&keywords=")
                     .concat(searchRequest.getSearchTerm())).execute().returnContent().asString();
-
+	}
+	
     searchResponse = parseEtsyResponse(etsyResponse);
 
     // searchResponse

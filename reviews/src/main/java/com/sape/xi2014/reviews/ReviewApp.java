@@ -8,43 +8,42 @@ import static spark.SparkBase.setPort;
  */
 public class ReviewApp {
 
-  public static void main(String[] args) {
-    
-    setPort(4568);
+	public static void main(String[] args) {
 
-    get("/hello-reviews", (req, res) -> "hello world from the review service");
+		setPort(4568);
 
-    get("/reviews/seller", (request, response) -> {
+		get("/hello-reviews", (req, res) -> "hello world from the review service");
 
-      Object returnValue = null;
-      String sellerId = null;
+		get("/reviews/seller", (request, response) -> {
 
-      try {
-        sellerId = request.queryParams("sellerId");
-        returnValue = ReviewService.INSTANCE.getSellerReviews(sellerId);
-      } catch (Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
-      }
+			Object returnValue = null;
+			String sellerId = null;
 
-      return returnValue;
-    });
-    
-    
-    get("/listing/images", (request, response) -> {
-    	Object returnValue = null;
-        String productId = null;
-        try {
-          productId = request.queryParams("productId");
-          returnValue = ReviewService.INSTANCE.getProductImages(productId);
-        } catch (Exception e) {
-          e.printStackTrace();
-          throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
-        }
+			try {
+				sellerId = request.queryParams("sellerId");
+				returnValue = ReviewService.INSTANCE.getSellerReviews(sellerId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
+			}
 
-        return returnValue;
-      });
+			return returnValue;
+		});
 
-  }
+		get("/listing/images", (request, response) -> {
+			Object returnValue = null;
+			String productId = null;
+			try {
+				productId = request.queryParams("productId");
+				returnValue = ReviewService.INSTANCE.getProductImages(productId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
+			}
+
+			return returnValue;
+		});
+
+	}
 
 }
