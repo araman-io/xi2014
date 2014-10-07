@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
-import rx.schedulers.Schedulers;
 
 import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
@@ -15,7 +14,7 @@ import com.sape.xi2014.flow.b.withmicrosvc.ServiceMediator;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
 
-public class ReactiveAsyncServiceMediator implements ServiceMediator {
+public class ReactiveAsyncServiceMediatorStrategyB implements ServiceMediator {
 
   ObservableSearchServiceClient searchServiceClient = new ObservableSearchServiceClient();
   ObservableReviewsServiceClient reviewsServiceClient = new ObservableReviewsServiceClient();
@@ -25,22 +24,21 @@ public class ReactiveAsyncServiceMediator implements ServiceMediator {
     List<Tile> allTiles = new ArrayList<Tile>();
     ClientResponse response = new ClientResponse();
 
-    searchTile.parallel(oTile -> {
+    Observable o1 = searchTile.parallel(oTile -> {
       return oTile.flatMap(t -> {
-        Observable<Reviews> reviews = reviewsServiceClient.getSellerReviews(t.getSellerId());
-        Observable<String> imageUrl = reviewsServiceClient.getProductImage(t.getProductId());
-
-        return Observable.zip(reviews, imageUrl, (r, u) -> {
-          t.setReviews(r);
-          t.setImageUrl(u);
-
-          return t;
-        });
-
+        Observable<Reviews> sellerReviews = reviewsServiceClient.getSellerReviews(t.getSellerId());
+        return sellerReviews;
       });
-    }).subscribe(e -> {
-      allTiles.add((Tile) e);
     });
+
+    Observable o2 = searchTile.parallel(oTile -> {
+      return oTile.flatMap(t -> {
+        Observable<String> url = reviewsServiceClient.getProductImage(t.getProductId());
+        return url;
+      });
+    });
+
+    // TODO merge and do something
 
     Tiles tiles = new Tiles();
     tiles.setTiles(allTiles);
@@ -51,9 +49,9 @@ public class ReactiveAsyncServiceMediator implements ServiceMediator {
   }
 
   public static void main(String[] args) throws Exception {
-    ClientResponse searchResults = new ReactiveAsyncServiceMediator().getAggregatedResponse("shoes");
+    ClientResponse searchResults = new ReactiveAsyncServiceMediatorStrategyB().getAggregatedResponse("shoes");
     Thread.sleep(60000);
-    System.out.println(new Gson().toJson(searchResults));
+    // System.out.println(new Gson().toJson(searchResults));
   }
 
 }
