@@ -1,10 +1,12 @@
-package com.sape.xi2014.flow.b.withmicrosvc.stub;
+package com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub;
 
 import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.EtsyImage;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.ImgResult;
 
 /**
  * @author mvalli

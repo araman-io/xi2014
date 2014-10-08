@@ -1,6 +1,5 @@
 package com.sape.xi2014.flow.d.frpwithmicrosvcasync;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -11,12 +10,12 @@ import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
-import com.sape.xi2014.flow.b.withmicrosvc.ServiceMediator;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
+import com.sape.xi2014.service.ServiceMediator;
 
 
-public class ReactiveAsyncServiceMediatorStrategyC implements ServiceMediator {
+public class ReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
 
   ObservableSearchServiceClient searchServiceClient = new ObservableSearchServiceClient();
   ObservableReviewsServiceClient reviewsServiceClient = new ObservableReviewsServiceClient();
@@ -39,7 +38,6 @@ public class ReactiveAsyncServiceMediatorStrategyC implements ServiceMediator {
           });
         });
 
-    System.out.println("going to construct the list");
     List<Tile> single =
         mergedTile.doOnCompleted(() -> System.out.println("All Tiles Completed " + startTime)).toList().toBlocking()
             .single();
@@ -51,7 +49,7 @@ public class ReactiveAsyncServiceMediatorStrategyC implements ServiceMediator {
   }
 
   public static void main(String[] args) throws Exception {
-    ClientResponse searchResults = new ReactiveAsyncServiceMediatorStrategyC().getAggregatedResponse("shoes");
+    ClientResponse searchResults = new ReactiveAsyncServiceMediatorStrategy().getAggregatedResponse("shoes");
     System.out.println(new Gson().toJson(searchResults));
   }
 

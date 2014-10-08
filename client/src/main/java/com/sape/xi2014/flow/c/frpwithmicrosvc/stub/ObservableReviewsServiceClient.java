@@ -29,10 +29,10 @@ public class ObservableReviewsServiceClient {
       String url = null;
       try {
         url = basicReviewsClient.getProductImage(productId);
+        subscriber.onNext(url);
       } catch (Exception e) {
         e.printStackTrace();
       }
-      subscriber.onNext(url);
       subscriber.onCompleted();
     });
     return productImageUrl;

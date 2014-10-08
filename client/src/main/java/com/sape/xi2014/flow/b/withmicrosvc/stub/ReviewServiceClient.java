@@ -3,12 +3,10 @@ package com.sape.xi2014.flow.b.withmicrosvc.stub;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
 
 import com.google.gson.Gson;
 import com.sape.xi2014.entity.Reviews;
-import com.sun.scenario.effect.impl.prism.PrDrawable;
 
 public class ReviewServiceClient {
 

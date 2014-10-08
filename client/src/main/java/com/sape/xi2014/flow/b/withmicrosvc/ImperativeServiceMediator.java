@@ -7,6 +7,7 @@ import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.ReviewServiceClient;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.SearchServiceClient;
+import com.sape.xi2014.service.ServiceMediator;
 
 public class ImperativeServiceMediator implements ServiceMediator {
 

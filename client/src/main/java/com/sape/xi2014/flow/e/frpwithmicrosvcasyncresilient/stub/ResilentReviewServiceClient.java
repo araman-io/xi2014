@@ -1,4 +1,4 @@
-package com.sape.xi2014.flow.b.withmicrosvc.stub;
+package com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.sape.xi2014.entity.Reviews;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.EtsyReview;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.Result;
 
 /**
  * @author mvalli

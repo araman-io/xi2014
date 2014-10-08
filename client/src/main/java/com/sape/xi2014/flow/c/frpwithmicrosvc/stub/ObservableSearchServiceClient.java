@@ -1,7 +1,5 @@
 package com.sape.xi2014.flow.c.frpwithmicrosvc.stub;
 
-import java.util.List;
-
 import rx.Observable;
 
 import com.sape.xi2014.entity.Tile;
@@ -18,35 +16,18 @@ public class ObservableSearchServiceClient {
       Tiles searchResults = null;
       try {
         searchResults = basicSearchClient.getSearchResults(searchTerm);
+        for (Tile t : searchResults.getTiles()) {
+          subscriber.onNext(t);
+        }
       } catch (Exception e) {
         e.printStackTrace();
       }
-      
-      for (Tile t : searchResults.getTiles()) {
-        subscriber.onNext(t);
-      }
-     
+
       subscriber.onCompleted();
 
     });
 
     return tiles;
-  }
-
-  public Observable<List<Tile>> getListOfTiles(String searchTerm) throws Exception {
-    SearchServiceClient basicSearchClient = new SearchServiceClient();
-
-    Observable<List<Tile>> listOfTiles = Observable.create(subscriber -> {
-      Tiles searchResults = null;
-      try {
-        searchResults = basicSearchClient.getSearchResults(searchTerm);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      subscriber.onNext(searchResults.getTiles());
-    });
-
-    return listOfTiles;
   }
 
 }

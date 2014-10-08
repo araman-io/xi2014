@@ -1,4 +1,4 @@
-package com.sape.xi2014.flow.c.frpwithmicrosvc;
+package com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
-import com.sape.xi2014.flow.b.withmicrosvc.ServiceMediator;
-import com.sape.xi2014.flow.b.withmicrosvc.stub.ResilentProductImageClient;
-import com.sape.xi2014.flow.b.withmicrosvc.stub.ResilentReviewServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
+import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub.ResilentProductImageClient;
+import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub.ResilentReviewServiceClient;
+import com.sape.xi2014.service.ServiceMediator;
 
 public class ResilentReactiveServiceMediator implements ServiceMediator {
 

@@ -1,4 +1,4 @@
-package com.sape.xi2014.flow.b.withmicrosvc;
+package com.sape.xi2014.service;
 
 import com.sape.xi2014.entity.ClientResponse;
 
