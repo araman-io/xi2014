@@ -7,7 +7,8 @@ public class ListingService {
 
   public static ListingService INSTANCE = new ListingService();
 
-  private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
+  //private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
+    private static final String API_KEY = "cpb6iite9vw04dg0rusuis9u";
 
   /**
    * 
