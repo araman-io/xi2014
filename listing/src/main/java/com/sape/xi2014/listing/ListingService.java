@@ -1,4 +1,4 @@
-package com.sape.xi2014.reviews;
+package com.sape.xi2014.listing;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
