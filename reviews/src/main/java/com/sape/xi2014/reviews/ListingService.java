@@ -3,9 +3,9 @@ package com.sape.xi2014.reviews;
 import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
 
-public class ReviewService {
+public class ListingService {
 
-  public static ReviewService INSTANCE = new ReviewService();
+  public static ListingService INSTANCE = new ListingService();
 
   private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
 
