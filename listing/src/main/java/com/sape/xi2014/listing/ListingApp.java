@@ -18,7 +18,7 @@ public class ListingApp {
 		get("/hello-reviews", (req, res) -> "hello world from the review service");
 
 		get("/listing/reviews/seller", (request, response) -> {
-
+			response.header("Access-Control-Allow-Origin", "*");
 			Object returnValue = null;
 			String sellerId = null;
 
