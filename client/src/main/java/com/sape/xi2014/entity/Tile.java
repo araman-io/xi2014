@@ -8,6 +8,20 @@ public class Tile {
   String url;
   String imageUrl;
   Reviews reviews;
+  
+  public Tile() {
+    super();
+  }
+  
+  public Tile(Tile t, Reviews r, String imageUrl) {
+    this.productId = t.productId;
+    this.state = t.state;
+    this.sellerId = t.sellerId;
+    this.description = t.description;
+    this.url = t.url;
+    this.imageUrl  = imageUrl;
+    this.reviews = r;
+  }
 
   public String getProductId() {
     return productId;

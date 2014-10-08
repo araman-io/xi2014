@@ -18,6 +18,7 @@ public class ObservableReviewsServiceClient {
       } catch (Exception e) {
         e.printStackTrace();
       }
+      subscriber.onCompleted();
     });
 
     return r;
@@ -32,7 +33,7 @@ public class ObservableReviewsServiceClient {
         e.printStackTrace();
       }
       subscriber.onNext(url);
-
+      subscriber.onCompleted();
     });
     return productImageUrl;
   }

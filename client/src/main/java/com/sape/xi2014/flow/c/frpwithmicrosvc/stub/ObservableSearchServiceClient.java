@@ -25,7 +25,9 @@ public class ObservableSearchServiceClient {
       for (Tile t : searchResults.getTiles()) {
         subscriber.onNext(t);
       }
-      
+     
+      subscriber.onCompleted();
+
     });
 
     return tiles;

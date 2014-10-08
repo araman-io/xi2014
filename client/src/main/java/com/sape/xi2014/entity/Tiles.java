@@ -8,6 +8,14 @@ public class Tiles {
   
   List<Tile> tiles;
 
+  public Tiles() {
+    super();
+    
+  }
+  public Tiles(List<Tile> tiles) {
+    this.tiles = tiles;
+  }
+
   public List<Tile> getTiles() {
     return tiles;
   }

@@ -45,3 +45,4 @@ www-test/
 .vagrant
 target/*
 target
+.settings
