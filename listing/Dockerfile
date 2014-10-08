@@ -1,7 +1,7 @@
 FROM java8:latest
 
 #Running Scripts file
-ADD reviews-1.0-SNAPSHOT-jar-with-dependencies.jar  /tmp/
+ADD target/listing-1.0-SNAPSHOT-jar-with-dependencies.jar  /tmp/
 
 ADD run.sh /tmp/run.sh
 RUN chmod +x /tmp/*.sh

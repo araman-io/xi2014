@@ -61,7 +61,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.sape.xi2014.reviews.ReviewApp</mainClass>
+							<mainClass>com.sape.xi2014.listing.ListingApp</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
