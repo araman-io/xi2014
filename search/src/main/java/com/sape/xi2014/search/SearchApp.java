@@ -22,7 +22,7 @@ public class SearchApp {
 
     get("/search/bykeyword",
         (request, response) -> {
-
+        	response.header("Access-Control-Allow-Origin", "*");
           Object returnValue = null;
           String outputAs = request.queryParams("as") == null ? "protobuf" : request.queryParams("as");
 
