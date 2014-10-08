@@ -17,8 +17,8 @@ public class SearchService {
 
   public static SearchService INSTANCE = new SearchService();
 
-  private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
-
+  //private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
+  private static final String API_KEY = "cpb6iite9vw04dg0rusuis9u";
   public SearchResponse getSearchResults(SearchRequest searchRequest) throws Exception {
 
     String etsyResponse = null;
