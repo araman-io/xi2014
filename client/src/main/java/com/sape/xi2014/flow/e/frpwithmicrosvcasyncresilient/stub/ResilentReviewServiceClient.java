@@ -8,6 +8,10 @@ import org.apache.http.client.fluent.Request;
 import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
+import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixCommand.Setter;
+import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.EtsyReview;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.Result;
@@ -18,15 +22,39 @@ import com.sape.xi2014.flow.b.withmicrosvc.stub.Result;
  */
 public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
 
-	String sellerId;
-
 	/**
 	 * @param sellerId
 	 */
-	public ResilentReviewServiceClient(String sellerId) {
-		super(HystrixCommandGroupKey.Factory.asKey("ReviewServiceGroup"));
-		// super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ReviewServiceGroup")));
-		this.sellerId = sellerId;
+	public ResilentReviewServiceClient() {
+		//super(HystrixCommandGroupKey.Factory.asKey("ReviewServiceGroup"));
+		super( Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ProductServiceGroup")).andCommandKey(
+                HystrixCommandKey.Factory.asKey("ProductReviewServiceCommand")).andCommandPropertiesDefaults(
+                        HystrixCommandProperties
+                        .Setter()
+                        .withExecutionIsolationStrategy(ExecutionIsolationStrategy.THREAD)
+                        .withRequestCacheEnabled(false)
+                        .withMetricsHealthSnapshotIntervalInMilliseconds(
+                                Integer.valueOf("10000"))
+                        .withCircuitBreakerRequestVolumeThreshold(
+                                Integer.valueOf("50"))
+                        .withCircuitBreakerSleepWindowInMilliseconds(
+                                Integer.valueOf("100000"))
+                        .withExecutionIsolationThreadTimeoutInMilliseconds(
+                                Integer.valueOf("3000"))
+                        // If defined, then CircuitBreakerRequestVolumeThreshold takes precedence over error %
+                        /*
+                         * .withCircuitBreakerErrorThresholdPercentage( Integer.valueOf(getFromConfigRegistry(groupKey,
+                         * commandKey, "circuitBreakerErrorThresholdPercentage", "5")))
+                         */
+                        .withCircuitBreakerForceOpen(
+                                Boolean.getBoolean("false"))
+                        .withExecutionIsolationSemaphoreMaxConcurrentRequests(
+                                Integer.valueOf("100"))
+                        .withFallbackIsolationSemaphoreMaxConcurrentRequests(
+                                Integer.valueOf("50"))
+
+                ));
+
 	}
 
 	/*
@@ -38,7 +66,8 @@ public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
 	 */
 	@Override
 	protected Reviews run() throws Exception {
-		String response = Request.Get("http://localhost:4568/reviews/seller?sellerId=".concat(sellerId)).execute()
+		String sellerId = "11772281";
+		String response = Request.Get("http://localhost:4568/listing/reviews/seller?sellerId=".concat(sellerId)).execute()
 				.returnContent().asString();
 
 		Gson json = new Gson();
@@ -51,7 +80,7 @@ public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
 		}
 
 		Reviews reviews = new Reviews();
-		reviews.setCount(sellerReview.getCount());
+	    reviews.setCount(sellerReview.getCount());
 		reviews.setMessage(messages);
 
 		return reviews;

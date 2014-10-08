@@ -5,6 +5,9 @@ import org.apache.http.client.fluent.Request;
 import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
+import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.EtsyImage;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.ImgResult;
 
@@ -20,8 +23,35 @@ public class ResilentProductImageClient extends HystrixCommand<String> {
 	 * @param sellerId
 	 */
 	public ResilentProductImageClient(String productId) {
-		super(HystrixCommandGroupKey.Factory.asKey("ProductImageServiceGroup"));
-		// super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ReviewServiceGroup")));
+		//super(HystrixCommandGroupKey.Factory.asKey("ProductImageServiceGroup"));
+		super( Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ProductImageServiceGroup")).andCommandKey(
+                 HystrixCommandKey.Factory.asKey("ProductImageServiceCommand")).andCommandPropertiesDefaults(
+                         HystrixCommandProperties
+                         .Setter()
+                         .withExecutionIsolationStrategy(ExecutionIsolationStrategy.SEMAPHORE)
+                         .withRequestCacheEnabled(false)
+                         .withMetricsHealthSnapshotIntervalInMilliseconds(
+                                 Integer.valueOf("10000"))
+                         .withCircuitBreakerRequestVolumeThreshold(
+                                 Integer.valueOf("50"))
+                         .withCircuitBreakerSleepWindowInMilliseconds(
+                                 Integer.valueOf("100000"))
+                         .withExecutionIsolationThreadTimeoutInMilliseconds(
+                                 Integer.valueOf("3500"))
+                         // If defined, then CircuitBreakerRequestVolumeThreshold takes precedence over error %
+                         /*
+                          * .withCircuitBreakerErrorThresholdPercentage( Integer.valueOf(getFromConfigRegistry(groupKey,
+                          * commandKey, "circuitBreakerErrorThresholdPercentage", "5")))
+                          */
+                         .withCircuitBreakerForceOpen(
+                                 Boolean.getBoolean("false"))
+                         .withExecutionIsolationSemaphoreMaxConcurrentRequests(
+                                 Integer.valueOf("100"))
+                         .withFallbackIsolationSemaphoreMaxConcurrentRequests(
+                                 Integer.valueOf("50"))
+
+                 ));
+
 		this.productId = productId;
 	}
 
@@ -42,7 +72,6 @@ public class ResilentProductImageClient extends HystrixCommand<String> {
 		EtsyImage productImage = json.fromJson(response, EtsyImage.class);
 
 		for (ImgResult r : productImage.getResults()) {
-			System.out.println("product image URL is - "+r.getUrl_fullxfull());
 			return r.getUrl_fullxfull();
 		}
 
