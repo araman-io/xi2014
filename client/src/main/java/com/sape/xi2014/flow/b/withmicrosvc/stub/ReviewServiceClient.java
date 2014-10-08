@@ -15,7 +15,7 @@ public class ReviewServiceClient {
   public Reviews getSellerReviews(String sellerId) throws Exception {
 
     String response =
-        Request.Get("http://localhost:4568/reviews/seller?sellerId=".concat(sellerId)).execute().returnContent()
+        Request.Get("http://localhost:4568/listing/reviews/seller?sellerId=".concat(sellerId)).execute().returnContent()
             .asString();
 
     Gson json = new Gson();
