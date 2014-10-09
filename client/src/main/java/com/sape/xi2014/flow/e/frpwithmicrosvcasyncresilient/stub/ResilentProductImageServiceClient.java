@@ -3,8 +3,6 @@ package com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rx.Observable;
-
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
