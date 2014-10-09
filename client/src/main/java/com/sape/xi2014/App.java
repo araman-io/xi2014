@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.flow.b.withmicrosvc.ImperativeServiceMediator;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.ReactiveServiceMediator;
-import com.sape.xi2014.flow.d.frpwithmicrosvcasync.ReactiveAsyncServiceMediatorStrategy;
+import com.sape.xi2014.flow.d.frpwithmicrosvcasync.ReactiveAsyncServiceMediator;
 import com.sape.xi2014.service.ServiceMediator;
 
 /**
@@ -77,7 +77,7 @@ public class App {
 			return new ReactiveServiceMediator();
 		case "D":
 			logger.info(" Flow D : Reactive Async Service Mediator");
-			return new ReactiveAsyncServiceMediatorStrategy();
+			return new ReactiveAsyncServiceMediator();
 		default:
 			logger.info(" Flow Default : Reactive Service Mediator");
 			return new ReactiveServiceMediator();

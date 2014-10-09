@@ -15,7 +15,7 @@ import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient
 import com.sape.xi2014.service.ServiceMediator;
 
 
-public class ReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
+public class ReactiveAsyncServiceMediator implements ServiceMediator {
 
   ObservableSearchServiceClient searchServiceClient = new ObservableSearchServiceClient();
   ObservableListingServiceClient listingServiceClient = new ObservableListingServiceClient();
@@ -49,7 +49,7 @@ public class ReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
   }
 
   public static void main(String[] args) throws Exception {
-    ClientResponse searchResults = new ReactiveAsyncServiceMediatorStrategy().getAggregatedResponse("shoes");
+    ClientResponse searchResults = new ReactiveAsyncServiceMediator().getAggregatedResponse("shoes");
     System.out.println(new Gson().toJson(searchResults));
   }
 
