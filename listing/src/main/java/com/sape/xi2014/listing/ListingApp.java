@@ -3,15 +3,19 @@ package com.sape.xi2014.listing;
 import static spark.Spark.get;
 import static spark.SparkBase.setPort;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * App for SearchService
  */
 public class ListingApp {
-
+    static Logger logger = LoggerFactory.getLogger(ListingApp.class);
+    
 	public static void main(String[] args) {
 
 		String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
-		System.out.println("Mode " + mode);
+		logger.info("Mode " + mode);
 		
 		setPort(4568);
 

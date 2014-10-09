@@ -1,8 +1,11 @@
 package com.sape.xi2014.search;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
 
 import javax.servlet.ServletOutputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sape.xi2014.search.entity.SearchProtos;
 import com.sape.xi2014.search.entity.SearchProtos.SearchRequest;
@@ -13,43 +16,45 @@ import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
  */
 public class SearchApp {
 
-  public static void main(String[] args) {
-	  
-	String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
-	System.out.println("Mode " + mode);  
-    
-    get("/hello-search", (req, res) -> "hello world from the search service");
+	static Logger logger = LoggerFactory.getLogger(SearchApp.class);
 
-    get("/search/bykeyword",
-        (request, response) -> {
-        	response.header("Access-Control-Allow-Origin", "*");
-          Object returnValue = null;
-          String outputAs = request.queryParams("as") == null ? "protobuf" : request.queryParams("as");
+	public static void main(String[] args) {
 
-          try {
-            // build a search request
-            SearchRequest searchRequest =
-                SearchProtos.SearchRequest.newBuilder().setSearchTerm(request.queryParams("searchTerm")).build();
+		String mode = System.getProperty("mode") != null ? System.getProperty("mode") : "esty";
+		logger.info("Mode " + mode);
 
-            SearchResponse searchResults = SearchService.INSTANCE.getSearchResults(searchRequest);
+		get("/hello-search", (req, res) -> "hello world from the search service");
 
-            if (outputAs.equals("protobuf")) {
-              // set the response type
-              response.type("application/x-protobuf");
-              ServletOutputStream outputStream = response.raw().getOutputStream();
-              searchResults.writeTo(outputStream);
-              outputStream.close();
-            } else {
-              returnValue = searchResults;
-            }
-          } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("encountered an exception while trying to serve searchrequest", e);
-          }
+		get("/search/bykeyword",
+				(request, response) -> {
+					response.header("Access-Control-Allow-Origin", "*");
+					Object returnValue = null;
+					String outputAs = request.queryParams("as") == null ? "protobuf" : request.queryParams("as");
 
-          return returnValue;
-        });
+					try {
+						// build a search request
+						SearchRequest searchRequest = SearchProtos.SearchRequest.newBuilder()
+								.setSearchTerm(request.queryParams("searchTerm")).build();
 
-  }
+						SearchResponse searchResults = SearchService.INSTANCE.getSearchResults(searchRequest);
+
+						if (outputAs.equals("protobuf")) {
+							// set the response type
+							response.type("application/x-protobuf");
+							ServletOutputStream outputStream = response.raw().getOutputStream();
+							searchResults.writeTo(outputStream);
+							outputStream.close();
+						} else {
+							returnValue = searchResults;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("encountered an exception while trying to serve searchrequest", e);
+					}
+
+					return returnValue;
+				});
+
+	}
 
 }
