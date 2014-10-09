@@ -18,9 +18,9 @@ public class SearchServiceClient {
     InputStream asStream =
         Request.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(searchTerm)).execute().returnContent()
             .asStream();
-
+    long time = System.currentTimeMillis(); 
     SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
-
+    System.out.println(" ---- " + (System.currentTimeMillis() - time) + " ms");
     List<Tile> tiles = new ArrayList<Tile>();
 
     for (Item i : parsedResponse.getItemList()) {

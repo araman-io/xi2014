@@ -8,7 +8,7 @@ import org.apache.http.client.fluent.Request;
 import com.google.gson.Gson;
 import com.sape.xi2014.entity.Reviews;
 
-public class ReviewServiceClient {
+public class ListingServiceClient {
 
   public Reviews getSellerReviews(String sellerId) throws Exception {
 

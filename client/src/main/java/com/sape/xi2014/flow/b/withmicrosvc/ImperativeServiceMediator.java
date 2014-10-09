@@ -5,14 +5,14 @@ import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
-import com.sape.xi2014.flow.b.withmicrosvc.stub.ReviewServiceClient;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.ListingServiceClient;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.SearchServiceClient;
 import com.sape.xi2014.service.ServiceMediator;
 
 public class ImperativeServiceMediator implements ServiceMediator {
 
   SearchServiceClient searchClient = new SearchServiceClient();
-  ReviewServiceClient reviewClient = new ReviewServiceClient();
+  ListingServiceClient listingClient = new ListingServiceClient();
 
   @Override
   public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
@@ -21,10 +21,10 @@ public class ImperativeServiceMediator implements ServiceMediator {
 
     Tiles searchResults = searchClient.getSearchResults(searchTerm);
     for (Tile t : searchResults.getTiles()) {
-      Reviews sellerReviews = reviewClient.getSellerReviews(t.getSellerId());
+      Reviews sellerReviews = listingClient.getSellerReviews(t.getSellerId());
       t.setReviews(sellerReviews);
       
-      String imageUrl = reviewClient.getProductImage(t.getProductId());
+      String imageUrl = listingClient.getProductImage(t.getProductId());
       t.setImageUrl(imageUrl);
     }
     

@@ -1,7 +1,8 @@
 package com.sape.xi2014;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
 import static spark.SparkBase.setPort;
+import static spark.SparkBase.staticFileLocation;
 
 import java.util.HashMap;
 import java.util.Map;

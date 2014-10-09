@@ -19,7 +19,7 @@ public class ListingApp {
 		
 		setPort(4568);
 
-		get("/hello-reviews", (req, res) -> "hello world from the review service");
+		get("/hello-listing", (req, res) -> "hello world from the review service");
 
 		get("/listing/reviews/seller", (request, response) -> {
 			response.header("Access-Control-Allow-Origin", "*");
@@ -45,7 +45,7 @@ public class ListingApp {
 				returnValue = ListingService.INSTANCE.getProductImages(productId);
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
+				throw new RuntimeException("encountered an exception while trying to fetch images for seller ", e);
 			}
 
 			return returnValue;

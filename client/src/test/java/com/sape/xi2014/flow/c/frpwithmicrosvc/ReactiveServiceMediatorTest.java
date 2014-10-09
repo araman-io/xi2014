@@ -12,7 +12,7 @@ import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.SearchServiceClient;
-import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
+import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableListingServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
@@ -20,7 +20,7 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 public class ReactiveServiceMediatorTest {
 
   ObservableSearchServiceClient searchClient = new ObservableSearchServiceClient();
-  ObservableReviewsServiceClient reviewClient = new ObservableReviewsServiceClient();
+  ObservableListingServiceClient listingClient = new ObservableListingServiceClient();
   SearchServiceClient basicSearchServiceClient = new SearchServiceClient();
 
   String SEARCH_TERM = "shoes";
@@ -33,7 +33,7 @@ public class ReactiveServiceMediatorTest {
     tiles.flatMap(ts -> {
       Observable<Reviews> r = null;
       for (Tile t : ts.getTiles()) {
-        r = reviewClient.getSellerReviews(t.getSellerId());
+        r = listingClient.getSellerReviews(t.getSellerId());
       }
       return r;
     }).subscribe(rew -> {
@@ -48,7 +48,7 @@ public class ReactiveServiceMediatorTest {
 
     Observable.from(tiles).take(3).flatMap(ts -> {
       Observable<Reviews> review = null;
-      review = reviewClient.getSellerReviews(ts.getSellerId());
+      review = listingClient.getSellerReviews(ts.getSellerId());
       return review;
     }).subscribe(r -> {
       System.out.println(r.getCount() + "<>" + r.getMessage().size());
@@ -62,7 +62,7 @@ public class ReactiveServiceMediatorTest {
 
     tile.flatMap(t -> {
       Observable<Reviews> review = null;
-      review = reviewClient.getSellerReviews(t.getSellerId());
+      review = listingClient.getSellerReviews(t.getSellerId());
       return review;
     }).subscribe(r -> {
       System.out.println(r.getCount() + "<>" + r.getMessage().size());
@@ -76,7 +76,7 @@ public class ReactiveServiceMediatorTest {
     Gson gson = new Gson();
 
     searchTile.flatMap(t -> {
-      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId()).map(r -> {
+      Observable<Tile> tileWithReview = listingClient.getSellerReviews(t.getSellerId()).map(r -> {
         t.setReviews(r);
         return t;
       });
@@ -94,7 +94,7 @@ public class ReactiveServiceMediatorTest {
     List<Tile> allTiles = new ArrayList<Tile>();
 
     searchTile.flatMap(t -> {
-      Observable<Tile> tileWithReview = reviewClient.getSellerReviews(t.getSellerId()).map(r -> {
+      Observable<Tile> tileWithReview = listingClient.getSellerReviews(t.getSellerId()).map(r -> {
         t.setReviews(r);
         return t;
       });
@@ -115,8 +115,8 @@ public class ReactiveServiceMediatorTest {
     List<Tile> allTiles = new ArrayList<Tile>();
 
     searchTile.flatMap(t -> {
-      Observable<Reviews> reviews = reviewClient.getSellerReviews(t.getSellerId());
-      Observable<String> imageUrl = reviewClient.getProductImage(t.getProductId());
+      Observable<Reviews> reviews = listingClient.getSellerReviews(t.getSellerId());
+      Observable<String> imageUrl = listingClient.getProductImage(t.getProductId());
 
       return Observable.merge(reviews, imageUrl).flatMap(o -> {
         if (o instanceof String) {

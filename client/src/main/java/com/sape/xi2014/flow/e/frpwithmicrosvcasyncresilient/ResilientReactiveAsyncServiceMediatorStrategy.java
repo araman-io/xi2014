@@ -13,7 +13,7 @@ import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
 import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub.ResilentProductImageClient;
-import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub.ResilentReviewServiceClient;
+import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.stub.ResilentListingServiceClient;
 import com.sape.xi2014.service.ServiceMediator;
 
 public class ResilientReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
@@ -28,7 +28,7 @@ public class ResilientReactiveAsyncServiceMediatorStrategy implements ServiceMed
 
 		Observable<Tile> mergedTile = searchTile.flatMap(t -> {
 			// Invoke the Hystrix wrapped review service client directly
-				Observable<Reviews> reviews = new ResilentReviewServiceClient().observe().subscribeOn(Schedulers.io());
+				Observable<Reviews> reviews = new ResilentListingServiceClient().observe().subscribeOn(Schedulers.io());
 				
 				//Another mode of invoking it
 				/*

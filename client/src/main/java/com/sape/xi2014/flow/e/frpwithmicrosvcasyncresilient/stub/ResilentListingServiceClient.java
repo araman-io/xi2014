@@ -20,12 +20,12 @@ import com.sape.xi2014.flow.b.withmicrosvc.stub.Result;
  * @author mvalli
  *
  */
-public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
+public class ResilentListingServiceClient extends HystrixCommand<Reviews> {
 
 	/**
 	 * @param sellerId
 	 */
-	public ResilentReviewServiceClient() {
+	public ResilentListingServiceClient() {
 		//super(HystrixCommandGroupKey.Factory.asKey("ReviewServiceGroup"));
 		super( Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("ProductServiceGroup")).andCommandKey(
                 HystrixCommandKey.Factory.asKey("ProductReviewServiceCommand")).andCommandPropertiesDefaults(

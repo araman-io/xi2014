@@ -10,7 +10,7 @@ import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
-import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableReviewsServiceClient;
+import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableListingServiceClient;
 import com.sape.xi2014.flow.c.frpwithmicrosvc.stub.ObservableSearchServiceClient;
 import com.sape.xi2014.service.ServiceMediator;
 
@@ -18,7 +18,7 @@ import com.sape.xi2014.service.ServiceMediator;
 public class ReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
 
   ObservableSearchServiceClient searchServiceClient = new ObservableSearchServiceClient();
-  ObservableReviewsServiceClient reviewsServiceClient = new ObservableReviewsServiceClient();
+  ObservableListingServiceClient listingServiceClient = new ObservableListingServiceClient();
 
   public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
     final long startTime = System.currentTimeMillis();
@@ -29,9 +29,9 @@ public class ReactiveAsyncServiceMediatorStrategy implements ServiceMediator {
     Observable<Tile> mergedTile =
         searchTile.flatMap(t -> {
           Observable<Reviews> reviews =
-              reviewsServiceClient.getSellerReviews(t.getSellerId()).subscribeOn(Schedulers.io());
+              listingServiceClient.getSellerReviews(t.getSellerId()).subscribeOn(Schedulers.io());
           Observable<String> imageUrl =
-              reviewsServiceClient.getProductImage(t.getProductId()).subscribeOn(Schedulers.io());
+              listingServiceClient.getProductImage(t.getProductId()).subscribeOn(Schedulers.io());
 
           return Observable.zip(reviews, imageUrl, (r, u) -> {
             return new Tile(t, r, u);

@@ -3,17 +3,17 @@ package com.sape.xi2014.flow.c.frpwithmicrosvc.stub;
 import rx.Observable;
 
 import com.sape.xi2014.entity.Reviews;
-import com.sape.xi2014.flow.b.withmicrosvc.stub.ReviewServiceClient;
+import com.sape.xi2014.flow.b.withmicrosvc.stub.ListingServiceClient;
 
-public class ObservableReviewsServiceClient {
+public class ObservableListingServiceClient {
 
-  ReviewServiceClient basicReviewsClient = new ReviewServiceClient();
+  ListingServiceClient basicListingClient = new ListingServiceClient();
 
   public Observable<Reviews> getSellerReviews(String sellerId) {
 
     Observable<Reviews> r = Observable.create(subscriber -> {
       try {
-        Reviews sellerReviews = basicReviewsClient.getSellerReviews(sellerId);
+        Reviews sellerReviews = basicListingClient.getSellerReviews(sellerId);
         subscriber.onNext(sellerReviews);
       } catch (Exception e) {
         e.printStackTrace();
@@ -28,7 +28,7 @@ public class ObservableReviewsServiceClient {
     Observable<String> productImageUrl = Observable.create(subscriber -> {
       String url = null;
       try {
-        url = basicReviewsClient.getProductImage(productId);
+        url = basicListingClient.getProductImage(productId);
         subscriber.onNext(url);
       } catch (Exception e) {
         e.printStackTrace();
