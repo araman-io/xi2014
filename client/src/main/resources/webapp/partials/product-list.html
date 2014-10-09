@@ -27,7 +27,7 @@
 
       <ul class="items">
 	
-        <li ng-repeat="item in items | filter:query | orderBy:orderProp"
+        <li ng-repeat="item in items | filter:query"
             class="thumbnail item-listing">
           <a href="{{item.url}}" class="thumb"><img ng-src="{{item.imageUrl}}"></a>
 		  <p> ProductId: {{item.productId}} </p>

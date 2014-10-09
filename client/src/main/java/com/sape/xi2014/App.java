@@ -52,6 +52,7 @@ public class App {
 					searchTerm = DEFAULT_SEARCH_TERM;
 				}
 				if (valueMap.containsKey(searchTerm)) {
+					logger.info("Returning from cache ");
 					return valueMap.get(searchTerm);
 				}
 				aggregatedResponse = serviceMediator.getAggregatedResponse(searchTerm);

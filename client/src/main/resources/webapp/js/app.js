@@ -6,8 +6,7 @@ var listingApp = angular.module('listingApp', [
   'ngRoute',
   'productAnimations',
 
-  'productControllers',
-  'productFilters'
+  'productControllers'
   
 ]);
 
