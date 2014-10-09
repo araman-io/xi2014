@@ -3,7 +3,6 @@ package com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient;
 import java.util.List;
 
 import rx.Observable;
-import rx.Observer;
 import rx.schedulers.Schedulers;
 
 import com.google.gson.Gson;
