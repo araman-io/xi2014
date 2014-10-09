@@ -7,6 +7,7 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixThreadPoolProperties;
 import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.ListingServiceClient;
 
@@ -36,7 +37,10 @@ public class ResilentProductImageServiceClient extends HystrixCommand<String> {
                 .withExecutionIsolationThreadTimeoutInMilliseconds(Integer.valueOf("3500"))
                 .withCircuitBreakerForceOpen(Boolean.getBoolean("false"))
                 .withExecutionIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("100"))
-                .withFallbackIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("50"))));
+                .withFallbackIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("50")))
+        .andThreadPoolPropertiesDefaults(
+            HystrixThreadPoolProperties.Setter().withCoreSize(20).withMaxQueueSize(30).withCoreSize(30)
+                .withQueueSizeRejectionThreshold(20)));
 
     this.productId = productId;
   }

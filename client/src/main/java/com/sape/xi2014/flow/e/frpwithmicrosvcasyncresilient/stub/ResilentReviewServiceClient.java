@@ -8,6 +8,7 @@ import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStrategy;
+import com.netflix.hystrix.HystrixThreadPoolProperties;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.flow.b.withmicrosvc.stub.ListingServiceClient;
 
@@ -16,9 +17,9 @@ import com.sape.xi2014.flow.b.withmicrosvc.stub.ListingServiceClient;
  *
  */
 public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
-  
+
   private static Logger logger = LoggerFactory.getLogger(ResilentReviewServiceClient.class);
-  
+
   String sellerId = null;
   ListingServiceClient listingServiceClient = new ListingServiceClient();
 
@@ -39,8 +40,10 @@ public class ResilentReviewServiceClient extends HystrixCommand<Reviews> {
                 .withExecutionIsolationThreadTimeoutInMilliseconds(Integer.valueOf("3000"))
                 .withCircuitBreakerForceOpen(Boolean.getBoolean("false"))
                 .withExecutionIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("100"))
-                .withFallbackIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("50"))
-        ));
+                .withFallbackIsolationSemaphoreMaxConcurrentRequests(Integer.valueOf("50")))
+        .andThreadPoolPropertiesDefaults(
+            HystrixThreadPoolProperties.Setter().withCoreSize(20).withMaxQueueSize(30).withCoreSize(30)
+                .withQueueSizeRejectionThreshold(20)));
 
     this.sellerId = sellerId;
 
