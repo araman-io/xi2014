@@ -2,7 +2,8 @@
 <html lang="en" ng-app="listingApp">
 <head>
   <meta charset="utf-8">
-  <title>Product Search & Reviews</title>
+  <title>Product Search &amp; Reviews</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -20,31 +21,27 @@
 
 <body>
 
- <h2><img src="Sapient.jpg" width="200" height="50"/> 
- 
- <img src="xi-2014.png" width="200" height="50"align="right"/></h2>
- <p>
-  <div align="center" ng-controller="ProductListCtrl">
-  flow
-    <select width="20" ng-model="flow" ng-selected="0">
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="C">C</option>
-	  <option value="D">D</option>
-    </select>
-     <input type="text" size="30" ng-model="searchTerm">
-	
-	
-	<a href='#/items?searchTerm={{searchTerm}}&flow={{flow}}'><img src="search.jpg" width="30" height="30"align="center"/></a>
-	<br/>
-	
-</div>
+  <div id="header" class="clearfix">
+    <img src="header.png" /> 
+      <div ng-controller="ProductListCtrl" id="ProductListCtrl">
+        <label for"selectFlow">flow: </label>
+        <select id="selectFlow" ng-model="flow" ng-selected="0">
+          <option value="">---</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
+        <input type="text" size="30" ng-model="searchTerm" id="searchTerm" placeholder="type your search here ..." />
+      <a href='#/items?searchTerm={{searchTerm}}&flow={{flow}}' id="searchSubmit"></a>
+    </div>
+  </div>
 
-</p>
   <div class="view-container">
     <div ng-view class="view-frame"></div>
-	
   </div>
-<center><font color="grey">You can view this application<a href="https://github.com/myexpr/xi2014"> here</a></font></center>
+  <div id="footer">
+    <p class="grey">You can view this application <a href="https://github.com/myexpr/xi2014">here</a></p>
+  </div>
 </body>
 </html>

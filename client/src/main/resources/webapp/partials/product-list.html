@@ -1,44 +1,33 @@
 <div class="container-fluid">
-<p>  <font color="blue"><center>{{itemCountMsg}}</center></font></p>
-  <div class="row">
-    <div class="col-md-2">
-      <!--Sidebar content-->
-	  
+	<div class="row">
+		<div class="col-md-12 option-bar clearfix">
+			<p class="lfloat">
+				<label for="filterQuery" >filter: </label>
+				<input size="10" ng-model="query" id="filterQuery" placeholder="filter text here ...">
+			</p>
+			<p class="blue rfloat results-disp">
+				Search Results: {{itemCountMsg}}
+			</p>
+		</div>
+		<div class="col-md-12">
+			<!--Body content-->
+			<ul class="items">
+				<li ng-repeat="item in items | filter:query" class="item-listing">
+					<a href="{{item.url}}" class="thumb">
+						<img ng-src="{{item.imageUrl}}">
+					</a>
+					<div class="item-info">
+						<p class="orange"> ProductId: {{item.productId}} </p>
 
+						<strong>{{item.description}}</strong>
 
-
-
-<p/>
-
-	<p>
-      search <input size="10" ng-model="query">
-</p>
-
-<p>
-      sort
-      <select width="20" ng-model="orderProp">
-        <option value="name">alpha</option>
-       </select>
-	</p>  
-
-    </div>
-    <div class="col-md-10">
-      <!--Body content-->
-
-      <ul class="items">
-	
-        <li ng-repeat="item in items | filter:query"
-            class="thumbnail item-listing">
-          <a href="{{item.url}}" class="thumb"><img ng-src="{{item.imageUrl}}"></a>
-		  <p> ProductId: {{item.productId}} </p>
-        <font size="2" color="black"> <b> <p>{{item.description}}</b></p></font>
-		           <div ng-if="item.reviews.count != 0">
-						<font size="1.5" color="pink"><p>Review : {{item.reviews.message[0]}}</p></font>
-					</div>
-				 <font size="0.5" color="blue"><p>Reviews Count : {{item.reviews.count}}</p></font>
-        </li>
-      </ul>
-
-    </div>
-  </div>
+						<div ng-if="item.reviews.count != 0">
+							<p><strong>Review</strong> : {{item.reviews.message[0]}}</p>
+						</div>
+					 	<p class="blue">Reviews Count : {{item.reviews.count}}</p>
+				 	</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
