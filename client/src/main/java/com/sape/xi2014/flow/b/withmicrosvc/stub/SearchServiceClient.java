@@ -16,12 +16,15 @@ public class SearchServiceClient {
 
   public Tiles getSearchResults(String searchTerm) throws Exception {
 
+
+    long time = System.currentTimeMillis();
     InputStream asStream =
-        Request.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm,"UTF-8"))).execute().returnContent()
-            .asStream();
-    long time = System.currentTimeMillis(); 
-    SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
+        Request
+            .Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm, "UTF-8")))
+            .execute().returnContent().asStream();
     System.out.println(" ---- " + (System.currentTimeMillis() - time) + " ms");
+    SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
+
     List<Tile> tiles = new ArrayList<Tile>();
 
     for (Item i : parsedResponse.getItemList()) {

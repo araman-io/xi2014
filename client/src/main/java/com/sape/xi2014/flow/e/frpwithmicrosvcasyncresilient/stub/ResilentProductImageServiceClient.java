@@ -54,7 +54,7 @@ public class ResilentProductImageServiceClient extends HystrixCommand<String> {
 
   @Override
   protected String getFallback() {
-    logger.error("Couldn't retrieve response from product image service. Executing fallback");
+    logger.error("Couldn't retrieve image for {}", this.productId);
     return "";
   }
 

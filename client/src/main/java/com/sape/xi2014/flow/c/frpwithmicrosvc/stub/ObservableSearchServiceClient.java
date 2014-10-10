@@ -29,5 +29,5 @@ public class ObservableSearchServiceClient {
 
     return tiles;
   }
-
+  
 }

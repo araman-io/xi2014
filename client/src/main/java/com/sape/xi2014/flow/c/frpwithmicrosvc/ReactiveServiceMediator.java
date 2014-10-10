@@ -4,7 +4,6 @@ import java.util.List;
 
 import rx.Observable;
 
-import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
@@ -19,20 +18,34 @@ public class ReactiveServiceMediator implements ServiceMediator {
   ObservableListingServiceClient listingServiceClient = new ObservableListingServiceClient();
 
   public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
-    Observable<Tile> searchTile = searchServiceClient.getSearchResults(searchTerm);
+
+    final long startTime = System.currentTimeMillis();
+
+    Observable<Tile> searchTile =
+        searchServiceClient.getSearchResults(searchTerm).doOnSubscribe(() -> logTime("Search started ", startTime))
+            .doOnCompleted(() -> logTime("Search completed ", startTime));
+
     List<Tile> allTiles = null;
     ClientResponse response = new ClientResponse();
 
-    Observable<Tile> mergedTile = searchTile.flatMap(t -> {
-      Observable<Reviews> reviews = listingServiceClient.getSellerReviews(t.getSellerId());
-      Observable<String> imageUrl = listingServiceClient.getProductImage(t.getProductId());
+    Observable<Tile> mergedTile =
+        (Observable<Tile>) searchTile.flatMap(t -> {
+          Observable<Reviews> reviews =
+              listingServiceClient.getSellerReviews(t.getSellerId()).doOnCompleted(
+                  () -> logTime("\n getSellerReview [" + t.getProductId() + "] completed", startTime));
 
-      return Observable.zip(reviews, imageUrl, (r, u) -> {
-        return new Tile(t, r, u);
-      });
-    });
+          Observable<String> imageUrl =
+              listingServiceClient.getProductImage(t.getProductId()).doOnCompleted(
+                  () -> logTime("getProductImage [" + t.getProductId() + "] completed", startTime));
 
-    allTiles = mergedTile.toList().toBlocking().single();
+          return Observable.zip(reviews, imageUrl, (r, u) -> {
+            return new Tile(t, r, u);
+          }).doOnCompleted(() -> logTime("zip [" + t.getProductId() + "] completed \n", startTime));
+        });
+
+
+    allTiles =
+        mergedTile.toList().doOnCompleted(() -> logTime("All Tiles completed", startTime)).toBlocking().single();
 
     Tiles tiles = new Tiles();
     tiles.setTiles(allTiles);
@@ -42,9 +55,9 @@ public class ReactiveServiceMediator implements ServiceMediator {
 
   }
 
-  public static void main(String[] args) throws Exception {
-    ClientResponse searchResults = new ReactiveServiceMediator().getAggregatedResponse("shoes");
-    System.out.println(new Gson().toJson(searchResults));
+  private void logTime(String message, long startTime) {
+    System.out.println(message + " => " + (System.currentTimeMillis() - startTime) + "ms");
   }
+
 
 }
