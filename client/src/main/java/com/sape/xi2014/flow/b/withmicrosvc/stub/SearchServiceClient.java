@@ -1,6 +1,7 @@
 package com.sape.xi2014.flow.b.withmicrosvc.stub;
 
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class SearchServiceClient {
   public Tiles getSearchResults(String searchTerm) throws Exception {
 
     InputStream asStream =
-        Request.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(searchTerm)).execute().returnContent()
+        Request.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm,"UTF-8"))).execute().returnContent()
             .asStream();
     long time = System.currentTimeMillis(); 
     SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
