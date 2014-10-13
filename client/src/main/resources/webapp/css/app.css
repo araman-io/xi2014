@@ -16,22 +16,30 @@ body {
   font-weight: 400;
 }
 #header {
-  height: 200px;
-  max-width: 1280px;;
+	background: #000;
+	width: 100%;
+	margin-bottom: 30px;
+	padding: 10px;
+	display: table;
 }
-#header img {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+#header #xiLogo, #header #sapeLogo {
+	display: table-cell;
+	vertical-align: middle;
+}
+#header #sapeLogo {
+	float: right;
+}
+#ProductListCtrlWrap {
+	display: table-cell;
+	vertical-align: middle;
 }
 #ProductListCtrl {
   border: 2px solid #ccc;
   background: #fff;
   border-radius: 3px;
   position: relative;
-  display: table;
-  margin: 60px auto 0 auto;
+  width: 400px;
+  margin: 0 auto;
 }
 #ProductListCtrl input, #ProductListCtrl select {
   margin: 0;
@@ -40,7 +48,7 @@ body {
 #ProductListCtrl label {
   font-weight: bold;
   width: 40px;
-  display: table-cell;
+  display: inline-block;
   text-align: center;
   vertical-align: middle;
 }
@@ -48,12 +56,11 @@ body {
   width: 70px;
   border: none;
   border-right: 1px solid #ccc;
-  display: table-cell;
-  float: left;
+  display: inline-flex;
 }
 #ProductListCtrl input {
-  display: table-cell;
-  width: 340px;
+  display: inline-block;
+  width: 275px;
   border: none;
 }
 #searchSubmit {
