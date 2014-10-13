@@ -19,9 +19,7 @@ productControllers.controller('ProductListCtrl',  function($scope, $routeParams,
   success(function(data, status, headers, config) {
   console.log('$scope -- ',$scope,data)
     $scope.items = data;
-	if(data.count != null)
-    $scope.itemCountMsg="Search results "+data.count +" found!";  
-	else $scope.itemCountMsg="";
+	$scope.itemCountMsg = data.length;
     $scope.orderProp = 'productId';
 	
   }).
