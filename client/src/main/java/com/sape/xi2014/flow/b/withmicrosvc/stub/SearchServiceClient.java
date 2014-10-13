@@ -22,7 +22,6 @@ public class SearchServiceClient {
         Request
             .Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm, "UTF-8")))
             .execute().returnContent().asStream();
-    System.out.println(" ---- " + (System.currentTimeMillis() - time) + " ms");
     SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
 
     List<Tile> tiles = new ArrayList<Tile>();

@@ -4,9 +4,6 @@ import static spark.Spark.get;
 import static spark.SparkBase.setPort;
 import static spark.SparkBase.staticFileLocation;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +20,7 @@ import com.sape.xi2014.service.ServiceMediator;
  */
 public class App {
 
-	static Map<String, Object> valueMap = new HashMap<String, Object>();
+	//static Map<String, Object> valueMap = new HashMap<String, Object>();
 	static String DEFAULT_SEARCH_TERM = "bag";
 
 	private static Logger logger = LoggerFactory.getLogger(App.class);
@@ -51,14 +48,9 @@ public class App {
 				if (null == searchTerm || searchTerm.length() == 0) {
 					searchTerm = DEFAULT_SEARCH_TERM;
 				}
-				if (valueMap.containsKey(searchTerm)) {
-					logger.info("Returning from cache ");
-					return valueMap.get(searchTerm);
-				}
 				aggregatedResponse = serviceMediator.getAggregatedResponse(searchTerm);
 				Gson j = new Gson();
 				returnValue = j.toJson(aggregatedResponse.getTiles().getTiles());
-				valueMap.put(searchTerm, returnValue);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("encountered an exception while trying to fetch reviews for seller ", e);
