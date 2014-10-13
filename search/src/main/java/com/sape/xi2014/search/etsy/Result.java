@@ -2,6 +2,9 @@ package com.sape.xi2014.search.etsy;
 
 public class Result {
 	String listing_id;
+	
+	private Float price;
+	
     public String getListing_id() {
 		return listing_id;
 	}
@@ -31,6 +34,12 @@ public class Result {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
 	}
 	String state;
     String user_id;
