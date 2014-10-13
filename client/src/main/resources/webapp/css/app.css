@@ -29,6 +29,7 @@ body {
   border: 2px solid #ccc;
   background: #fff;
   border-radius: 3px;
+  position: relative;
   display: table;
   margin: 60px auto 0 auto;
 }
@@ -36,54 +37,39 @@ body {
   margin: 0;
   padding: 10px;
 }
-#ProductListCtrl .search-sec, #ProductListCtrl .filter-sec {
-  position: relative;
-  width: 330px;
-  display: table-cell;
-  background: #fff;
-  border: 2px solid #ccc;
-  border-radius: 5px 0 0 5px;
-}
-#ProductListCtrl .filter-sec {
-  width: 200px;
-  border-left: none;
-  border-radius: 0 5px 5px 0;
-}
 #ProductListCtrl label {
   font-weight: bold;
   width: 40px;
-  display: inline-block;
+  display: table-cell;
   text-align: center;
   vertical-align: middle;
-  margin: 0;
 }
 #ProductListCtrl select {
   width: 70px;
   border: none;
-  border-right: 1px solid #eee;
-  display: inline-block;
-  vertical-align: middle;
+  border-right: 1px solid #ccc;
+  display: table-cell;
+  float: left;
 }
 #ProductListCtrl input {
-  display: inline-block;
-  width: 200px;
+  display: table-cell;
+  width: 340px;
   border: none;
-  vertical-align: middle;
-  padding: 11px;
 }
-#ProductListCtrl strong {
-  display: block;
-  padding: 5px;
-  background: #eee;
-}
-
 #searchSubmit {
   background: url("../search-icon.png") no-repeat center center;
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
   width: 40px;
   height: 40px;
+}
+#filterQuery {
+  padding: 14px;
+  border: none;
+  border-right: 1px solid #ccc;
+  border-radius: 2px;
+  width: 340px;
 }
 .view-container {
   max-width: 1000px;
