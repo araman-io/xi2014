@@ -8,8 +8,8 @@ productControllers.controller('ProductListCtrl',  function($scope, $routeParams,
 
   var searchTerm=$routeParams.searchTerm;
   var flow=$routeParams.flow;
-  if (flow == null) flow="A";
-  if(searchTerm == null) searchTerm="bag";          
+  if (flow == null) {flow="A"; return;}
+  if(searchTerm == null) {searchTerm="bag"; return;}          
 			
   var searchUrl="http://localhost:4569/search?flow="+flow+"&searchTerm="+searchTerm;
   
