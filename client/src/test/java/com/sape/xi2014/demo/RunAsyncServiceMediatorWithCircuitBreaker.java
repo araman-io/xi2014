@@ -9,7 +9,7 @@ import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.ResilientReactiveAsy
 
 public class RunAsyncServiceMediatorWithCircuitBreaker {
 
-  String SEARCH_TERM = "fountain%20pen";
+  String SEARCH_TERM = "fountain pen";
 
   @Test
   public void runReactiveServiceMediatorWithOutCircuitBreaker() throws Exception {

@@ -1,5 +1,6 @@
 package com.sape.xi2014.search;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class SearchService {
 		// Call to Etsy API to get the search Result using searchTerm
 		etsyResponse = Request
 				.Get("https://openapi.etsy.com/v2/listings/active?api_key=".concat(API_KEY).concat("&keywords=")
-						.concat(searchRequest.getSearchTerm())).viaProxy(new HttpHost("localhost", 8888, "http"))
-				.execute().returnContent().asString();
+						.concat(URLEncoder.encode(searchRequest.getSearchTerm())))
+				.viaProxy(new HttpHost("localhost", 8888, "http")).execute().returnContent().asString();
 
 		// mapping the search response json to proto class
 		searchResponse = parseEtsyResponse(etsyResponse);
