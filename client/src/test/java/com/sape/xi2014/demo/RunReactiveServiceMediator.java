@@ -8,7 +8,7 @@ import com.sape.xi2014.flow.c.frpwithmicrosvc.ReactiveServiceMediator;
 
 public class RunReactiveServiceMediator {
 
-	String SEARCH_TERM = "fountain pen";
+	String SEARCH_TERM = "shoes";
 
 	@Test
 	public void runReactiveServiceMediator() throws Exception {

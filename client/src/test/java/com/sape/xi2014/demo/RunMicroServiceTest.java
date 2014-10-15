@@ -9,8 +9,9 @@ import org.junit.Test;
 import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 
 public class RunMicroServiceTest {
+	
 	@Test
-	public void runSearchServiceTest() throws Exception {
+	public void callUpdatedSearchServiceWithExtraPriceAttribute() throws Exception {
 		InputStream asStream = Request
 				.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode("shoes", "UTF-8")))
 				.execute().returnContent().asStream();

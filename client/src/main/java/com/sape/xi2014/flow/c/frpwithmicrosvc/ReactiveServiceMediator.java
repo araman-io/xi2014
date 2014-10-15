@@ -29,10 +29,10 @@ public class ReactiveServiceMediator implements ServiceMediator {
     ClientResponse response = new ClientResponse();
 
     Observable<Tile> mergedTile =
-        (Observable<Tile>) searchTile.flatMap(t -> {
+        searchTile.flatMap(t -> {
           Observable<Reviews> reviews =
               listingServiceClient.getSellerReviews(t.getSellerId()).doOnCompleted(
-                  () -> logTime("\n getSellerReview [" + t.getProductId() + "] completed", startTime));
+                  () -> logTime("\ngetSellerReview [" + t.getProductId() + "] completed", startTime));
 
           Observable<String> imageUrl =
               listingServiceClient.getProductImage(t.getProductId()).doOnCompleted(
@@ -40,7 +40,7 @@ public class ReactiveServiceMediator implements ServiceMediator {
 
           return Observable.zip(reviews, imageUrl, (r, u) -> {
             return new Tile(t, r, u);
-          }).doOnCompleted(() -> logTime("zip [" + t.getProductId() + "] completed ", startTime));
+          });
         });
 
 
