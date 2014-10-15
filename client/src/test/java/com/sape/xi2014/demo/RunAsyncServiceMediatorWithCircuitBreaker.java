@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
-import com.sape.xi2014.flow.c.frpwithmicrosvc.ReactiveServiceMediator;
 import com.sape.xi2014.flow.d.frpwithmicrosvcasync.ReactiveAsyncServiceMediator;
 import com.sape.xi2014.flow.e.frpwithmicrosvcasyncresilient.ResilientReactiveAsyncServiceMediator;
 

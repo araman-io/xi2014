@@ -5,7 +5,6 @@ import java.util.List;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;

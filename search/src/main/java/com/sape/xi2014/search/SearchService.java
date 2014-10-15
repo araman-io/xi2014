@@ -20,6 +20,7 @@ public class SearchService {
 
 	private static final String API_KEY = "3iv3rdx5szjeq3m1vp6idwm9";
 
+	@SuppressWarnings("deprecation")
 	public SearchResponse getSearchResults(SearchRequest searchRequest) throws Exception {
 
 		String etsyResponse = null;

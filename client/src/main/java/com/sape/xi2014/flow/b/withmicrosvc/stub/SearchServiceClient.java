@@ -14,34 +14,31 @@ import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 
 public class SearchServiceClient {
 
-  public Tiles getSearchResults(String searchTerm) throws Exception {
+	public Tiles getSearchResults(String searchTerm) throws Exception {
 
+		InputStream asStream = Request
+				.Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm, "UTF-8")))
+				.execute().returnContent().asStream();
+		SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
 
-    long time = System.currentTimeMillis();
-    InputStream asStream =
-        Request
-            .Get("http://localhost:4567/search/bykeyword?searchTerm=".concat(URLEncoder.encode(searchTerm, "UTF-8")))
-            .execute().returnContent().asStream();
-    SearchResponse parsedResponse = SearchResponse.parseFrom(asStream);
+		List<Tile> tiles = new ArrayList<Tile>();
 
-    List<Tile> tiles = new ArrayList<Tile>();
+		for (Item i : parsedResponse.getItemList()) {
+			Tile t = new Tile();
+			t.setProductId(i.getId());
+			t.setSellerId(i.getUserId());
+			t.setDescription(i.getDescription());
+			t.setState(i.getState());
+			t.setUrl(i.getUrl());
 
-    for (Item i : parsedResponse.getItemList()) {
-      Tile t = new Tile();
-      t.setProductId(i.getId());
-      t.setSellerId(i.getUserId());
-      t.setDescription(i.getDescription());
-      t.setState(i.getState());
-      t.setUrl(i.getUrl());
+			tiles.add(t);
+		}
 
-      tiles.add(t);
-    }
+		Tiles tileContainer = new Tiles();
+		tileContainer.setCount(parsedResponse.getCount());
+		tileContainer.setTiles(tiles);
 
-    Tiles tileContainer = new Tiles();
-    tileContainer.setCount(parsedResponse.getCount());
-    tileContainer.setTiles(tiles);
-
-    return tileContainer;
-  }
+		return tileContainer;
+	}
 
 }
