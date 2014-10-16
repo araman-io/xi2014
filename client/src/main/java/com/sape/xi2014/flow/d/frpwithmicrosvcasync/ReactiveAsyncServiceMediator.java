@@ -39,7 +39,7 @@ public class ReactiveAsyncServiceMediator implements ServiceMediator {
 
           return Observable.zip(reviews, imageUrl, (r, u) -> {
             return new Tile(t, r, u);
-          }).doOnCompleted(() -> logTime("zip [" + t.getProductId() + "] completed", startTime));
+          });
         });
 
     List<Tile> single =

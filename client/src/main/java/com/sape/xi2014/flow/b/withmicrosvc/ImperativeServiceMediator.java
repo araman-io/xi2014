@@ -11,32 +11,39 @@ import com.sape.xi2014.service.ServiceMediator;
 
 public class ImperativeServiceMediator implements ServiceMediator {
 
-  SearchServiceClient searchClient = new SearchServiceClient();
-  ListingServiceClient listingClient = new ListingServiceClient();
+	SearchServiceClient searchClient = new SearchServiceClient();
+	ListingServiceClient listingClient = new ListingServiceClient();
 
-  @Override
-  public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
+	@Override
+	public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
 
-    ClientResponse clientResponse = new ClientResponse();
+		ClientResponse clientResponse = new ClientResponse();
 
-    Tiles searchResults = searchClient.getSearchResults(searchTerm);
-    for (Tile t : searchResults.getTiles()) {
-      Reviews sellerReviews = listingClient.getSellerReviews(t.getSellerId());
-      t.setReviews(sellerReviews);
-      
-      String imageUrl = listingClient.getProductImage(t.getProductId());
-      t.setImageUrl(imageUrl);
-    }
-    
-    clientResponse.setTiles(searchResults);
+		Long time = System.currentTimeMillis();
+		Tiles searchResults = searchClient.getSearchResults(searchTerm);
+		logTime("search", time);
+		for (Tile t : searchResults.getTiles()) {
+			Reviews sellerReviews = listingClient.getSellerReviews(t.getSellerId());
+			t.setReviews(sellerReviews);
+			logTime("\ngetSellerReview [" + t.getProductId() + "] completed", time);
+			String imageUrl = listingClient.getProductImage(t.getProductId());
+			t.setImageUrl(imageUrl);
+			logTime("getProductImage [" + t.getProductId() + "] completed", time);
+		}
 
-    return clientResponse;
-  }
+		clientResponse.setTiles(searchResults);
 
-  public static void main(String[] args) throws Exception {
-    ClientResponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
-    Gson j = new Gson();
-    System.out.println(j.toJson(aggregatedResponse.getTiles().getTiles()));
-  }
+		return clientResponse;
+	}
+
+	private void logTime(String string, Long time) {
+		System.out.println(string + " [" + (System.currentTimeMillis() - time) + "] ms");
+	}
+
+	public static void main(String[] args) throws Exception {
+		ClientResponse aggregatedResponse = new ImperativeServiceMediator().getAggregatedResponse("shoes");
+		Gson j = new Gson();
+		System.out.println(j.toJson(aggregatedResponse.getTiles().getTiles()));
+	}
 
 }
