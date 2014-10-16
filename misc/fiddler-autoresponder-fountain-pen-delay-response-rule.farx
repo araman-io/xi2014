@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AutoResponder LastSave="2014-10-10T23:30:27.6772468+05:30" FiddlerVersion="2.4.9.2">
+<AutoResponder LastSave="2014-10-16T10:23:03.5813317+05:30" FiddlerVersion="2.4.9.2">
   <State Enabled="false" Fallthrough="true" UseLatency="true">
-    <ResponseRule Match="regex:(?insx).+/listings/(111214925|128333441|150750931|161525628)/images" Action="*delay:5000" Latency="5000" Enabled="true" />
+    <ResponseRule Match="regex:(?insx).+/listings/(111214925|128333441|150750931|161525628)/images" Action="*delay:5000" Enabled="true" />
+    <ResponseRule Match="regex:(?insx).+/listings/(169708721|206902263|164805190|150751377)/images" Action="*delay:5000" Enabled="true" />
   </State>
 </AutoResponder>
