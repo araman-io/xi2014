@@ -21,7 +21,7 @@ public class MyRxNettyTests {
     
     @Test
     public void testClientResponse() throws Exception {
-      ClientResponse aggregatedResponse = new RxNettyGateway().getAggregatedResponse("shoes");
+      ClientResponse aggregatedResponse = new RxNettyApiGateway().getAggregatedResponse("shoes");
       
       System.out.println(aggregatedResponse.getTiles().getTiles());
     }

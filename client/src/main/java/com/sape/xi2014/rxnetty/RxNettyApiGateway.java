@@ -14,7 +14,7 @@ import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.search.entity.SearchProtos.Item;
 import com.sape.xi2014.service.ServiceMediator;
 
-public class RxNettyGateway implements ServiceMediator {
+public class RxNettyApiGateway implements ServiceMediator {
 
   RxNettySearchCommand searchCommand = new RxNettySearchCommand();
   RxNettyReviewCommand reviewCommand = new RxNettyReviewCommand();
@@ -38,14 +38,14 @@ public class RxNettyGateway implements ServiceMediator {
           Observable<Reviews> reviews = reviewCommand.getSellerReviews(item.getUserId());
           Observable<String> image = imageCommand.getProductImage(item.getId());
 
-          
-          //compose the tile
+
+          // compose the tile
           Tile t = this.getTileFromItem(item);
-          
+
           reviews.subscribe(r -> {
             t.setReviews(r);
           });
-          
+
           image.subscribe(img -> {
             t.setImageUrl(img);
           });
@@ -55,7 +55,7 @@ public class RxNettyGateway implements ServiceMediator {
 
         return Observable.from(allTiles);
       }).toList().toBlocking().single();
-    
+
     ClientResponse clientResponse = new ClientResponse();
     clientResponse.setTiles(new Tiles(tiles));
 
