@@ -20,11 +20,6 @@ public class RxNettyApiGateway implements ServiceMediator {
   RxNettyReviewCommand reviewCommand = new RxNettyReviewCommand();
   RxNettyImageCommand imageCommand = new RxNettyImageCommand();
 
-  @Test
-  public void getTiled() {
-    searchCommand.getSearchResults("shoes").toBlocking().forEach(System.out::println);
-  }
-
   @Override
   public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
 
