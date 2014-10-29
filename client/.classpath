@@ -31,8 +31,15 @@
   <classpathentry kind="var" path="M2_REPO/com/google/protobuf/protobuf-java/2.6.0/protobuf-java-2.6.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/1.4/gson-1.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/io/reactivex/rxjava/1.0.0-rc.3/rxjava-1.0.0-rc.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/netflix/rxnetty/rx-netty/0.3.14/rx-netty-0.3.14.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/netflix/rxjava/rxjava-core/0.19.1/rxjava-core-0.19.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-codec-http/4.0.21.Final/netty-codec-http-4.0.21.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-codec/4.0.21.Final/netty-codec-4.0.21.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-transport/4.0.21.Final/netty-transport-4.0.21.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-buffer/4.0.21.Final/netty-buffer-4.0.21.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-common/4.0.21.Final/netty-common-4.0.21.Final.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-handler/4.0.21.Final/netty-handler-4.0.21.Final.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/netflix/hystrix/hystrix-core/1.4.0-RC5/hystrix-core-1.4.0-RC5.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/netflix/rxjava/rxjava-core/0.20.4/rxjava-core-0.20.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/netflix/archaius/archaius-core/0.4.1/archaius-core-0.4.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-configuration/commons-configuration/1.8/commons-configuration-1.8.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
