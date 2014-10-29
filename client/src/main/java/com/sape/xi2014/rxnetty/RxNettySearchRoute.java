@@ -1,29 +1,33 @@
 package com.sape.xi2014.rxnetty;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.reactivex.netty.protocol.http.server.HttpServerRequest;
+import io.reactivex.netty.protocol.http.server.HttpServerResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-
 import rx.Observable;
 
+import com.google.gson.Gson;
 import com.sape.xi2014.entity.ClientResponse;
 import com.sape.xi2014.entity.Reviews;
 import com.sape.xi2014.entity.Tile;
 import com.sape.xi2014.entity.Tiles;
 import com.sape.xi2014.search.entity.SearchProtos.Item;
-import com.sape.xi2014.service.ServiceMediator;
 
-public class RxNettyApiGateway implements ServiceMediator {
+public class RxNettySearchRoute {
 
   RxNettySearchCommand searchCommand = new RxNettySearchCommand();
   RxNettyReviewCommand reviewCommand = new RxNettyReviewCommand();
   RxNettyImageCommand imageCommand = new RxNettyImageCommand();
 
-  @Override
-  public ClientResponse getAggregatedResponse(String searchTerm) throws Exception {
+  public Observable<Void> handle(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
 
-    List<Tile> tiles = searchCommand.getSearchResults(searchTerm).flatMap(searchResponse -> {
+    String searchTerm = request.getQueryParameters().get("searchTerm").get(0);
+
+    Observable<Void> mandatoryReturn = searchCommand.getSearchResults(searchTerm).flatMap(searchResponse -> {
 
       List<Tile> allTiles = new ArrayList<Tile>();
 
@@ -48,13 +52,21 @@ public class RxNettyApiGateway implements ServiceMediator {
           allTiles.add(t);
         }
 
-        return Observable.from(allTiles);
-      }).toList().toBlocking().single();
+        ClientResponse clientResponse = new ClientResponse();
+        clientResponse.setTiles(new Tiles(allTiles));
 
-    ClientResponse clientResponse = new ClientResponse();
-    clientResponse.setTiles(new Tiles(tiles));
+        return Observable.just(clientResponse);
+      })
+      .flatMap(data -> {
+        Gson gson = new Gson();
+        String jsonResponse = gson.toJson(data);
+        System.out.println(jsonResponse);
+        response.writeString(jsonResponse);
+        return response.close(true);
+      });
+    
+    return mandatoryReturn;
 
-    return clientResponse;
   }
 
   protected Tile getTileFromItem(Item i) {

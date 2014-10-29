@@ -18,12 +18,5 @@ public class MyRxNettyTests {
     public void shouldReturnSellerReviews() {
       reviewCommand.getSellerReviews("8467327").toBlocking().forEach(System.out::println);
     }
-    
-    @Test
-    public void testClientResponse() throws Exception {
-      ClientResponse aggregatedResponse = new RxNettyApiGateway().getAggregatedResponse("shoes");
-      
-      System.out.println(aggregatedResponse.getTiles().getTiles());
-    }
-    
+        
 }
