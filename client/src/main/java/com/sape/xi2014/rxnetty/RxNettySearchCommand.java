@@ -20,27 +20,21 @@ public class RxNettySearchCommand {
         RxNetty.createHttpClient("localhost", 4567, PipelineConfigurators.<String, ByteBuf>httpClientConfigurator())
             .submit(HttpClientRequest.create(HttpMethod.GET, "/search/bykeyword?searchTerm=" + searchTerm))
             .flatMap(httpClientResponse -> {
+              return httpClientResponse.getContent();
+            }).flatMap(byteResponse -> {
+              ByteBufInputStream responseInputStream = null;
+              SearchResponse parsedResult = null;
 
-              Observable<SearchResponse> searchResult = null;
+              responseInputStream = new ByteBufInputStream(byteResponse);
+              try {
+                parsedResult = SearchResponse.parseFrom(responseInputStream);
+              } catch (Exception e) {
+                // TODO:: better error handling. Can I use onError() ??
+                e.printStackTrace();
+              }
 
-              // convert the HttpClientResponse to a SearchResult
-                searchResult = httpClientResponse.getContent().flatMap(byteResponse -> {
-                  ByteBufInputStream responseInputStream = null;
-                  SearchResponse parsedResult = null;
-
-                  responseInputStream = new ByteBufInputStream(byteResponse);
-                  try {
-                    parsedResult = SearchResponse.parseFrom(responseInputStream);
-                  } catch (Exception e) {
-                    // TODO:: better error handling. Can I use onError() ??
-                    e.printStackTrace();
-                  }
-
-                  return Observable.just(parsedResult);
-                });
-
-                return searchResult;
-              });
+              return Observable.just(parsedResult);
+            });
 
     return r;
 

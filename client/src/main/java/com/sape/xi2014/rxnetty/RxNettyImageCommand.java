@@ -26,23 +26,19 @@ public class RxNettyImageCommand {
             .createHttpClient("localhost", 4568, PipelineConfigurators.<String, ByteBuf>httpClientConfigurator())
             .submit(HttpClientRequest.create(HttpMethod.GET, "/listing/images?productId=".concat(productId)))
             .flatMap(httpClientResponse -> {
-
-
+              return httpClientResponse.getContent();
+            })
+            .flatMap(imageAsByteBuf -> {
               // take the httpclient response and convert it to a Review object
-                return httpClientResponse.getContent().flatMap(
-                    imageAsByteBuf -> {
+                Gson json = new Gson();
+                List<String> messages = new ArrayList<String>();
 
-                      Gson json = new Gson();
-                      List<String> messages = new ArrayList<String>();
+                EtsyImage productImage =
+                    json.fromJson(imageAsByteBuf.toString(Charset.defaultCharset()), EtsyImage.class);
 
-                      EtsyImage productImage =
-                          json.fromJson(imageAsByteBuf.toString(Charset.defaultCharset()), EtsyImage.class);
+                String url = productImage.getResults().get(0).getUrl_fullxfull();
 
-                      String url = productImage.getResults().get(0).getUrl_fullxfull();
-
-                      return Observable.just(url);
-                    });
-
+                return Observable.just(url);
               });
 
     return response;

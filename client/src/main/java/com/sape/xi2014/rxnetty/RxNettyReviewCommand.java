@@ -28,29 +28,26 @@ public class RxNettyReviewCommand {
             .createHttpClient("localhost", 4568, PipelineConfigurators.<String, ByteBuf>httpClientConfigurator())
             .submit(HttpClientRequest.create(HttpMethod.GET, "/listing/reviews/seller?sellerId=".concat(sellerId)))
             .flatMap(httpClientResponse -> {
-
-
+              return httpClientResponse.getContent();
+            })
+            .flatMap(reviewsAsByteBuf -> {
               // take the httpclient response and convert it to a Review object
-                return httpClientResponse.getContent().flatMap(
-                    reviewsAsByteBuf -> {
+                Gson json = new Gson();
+                List<String> messages = new ArrayList<String>();
 
-                      Gson json = new Gson();
-                      List<String> messages = new ArrayList<String>();
+                EtsyReview sellerReview =
+                    json.fromJson(reviewsAsByteBuf.toString(Charset.defaultCharset()), EtsyReview.class);
+                for (Result r : sellerReview.getResults()) {
+                  messages.add(r.getMessage());
+                }
 
-                      EtsyReview sellerReview =
-                          json.fromJson(reviewsAsByteBuf.toString(Charset.defaultCharset()), EtsyReview.class);
-                      for (Result r : sellerReview.getResults()) {
-                        messages.add(r.getMessage());
-                      }
+                Reviews reviews = new Reviews();
+                reviews.setCount(sellerReview.getCount());
+                reviews.setMessage(messages);
 
-                      Reviews reviews = new Reviews();
-                      reviews.setCount(sellerReview.getCount());
-                      reviews.setMessage(messages);
-
-                      return Observable.just(reviews);
-                    });
-
+                return Observable.just(reviews);
               });
+
 
     return response;
 
