@@ -3,6 +3,10 @@ package com.sape.xi2014.listing;
 import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Request;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.sape.xi2014.listing.domain.EtsyResponseBuilder;
+
 public class ListingService {
 
 	public static ListingService INSTANCE = new ListingService();
@@ -18,12 +22,19 @@ public class ListingService {
 	public String getSellerReviews(String sellerId) throws Exception {
 		String etsyResponse = null;
 		// Call to Etsy API to fetch the seller review using sellerId
-		etsyResponse = Request
-				.Get("https://openapi.etsy.com/v2/users/".concat(sellerId).concat("/feedback/as-seller?api_key=")
-						.concat(API_KEY)).viaProxy(new HttpHost("localhost", 8888, "http")).execute().returnContent()
-				.asString();
-
+		Gson json = new Gson();
+		int numOfReview = (int) (Math.random() * 10);
+		etsyResponse = json.toJson(EtsyResponseBuilder.generateEtsyReview(sellerId, numOfReview));
+		injectdelay();
 		return etsyResponse;
+	}
+
+	private void injectdelay() {
+		try {
+			Thread.sleep((long) (Math.random() * 1000));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+		}
 	}
 
 	/**
@@ -34,11 +45,9 @@ public class ListingService {
 	 */
 	public String getProductImages(String productID) throws Exception {
 		String etsyResponse = null;
-		// Call to Etsy API to fetch Product images using productId
-		etsyResponse = Request
-				.Get("https://openapi.etsy.com/v2/listings/".concat(productID).concat("/images?&api_key=")
-						.concat(API_KEY)).viaProxy(new HttpHost("localhost", 8888, "http")).execute().returnContent()
-				.asString();
+		Gson json = new Gson();
+		etsyResponse = json.toJson(EtsyResponseBuilder.generateEtsyImage(productID));
+		injectdelay();
 		return etsyResponse;
 	}
 
