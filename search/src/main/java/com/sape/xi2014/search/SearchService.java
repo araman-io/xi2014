@@ -1,17 +1,13 @@
 package com.sape.xi2014.search;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpHost;
-import org.apache.http.client.fluent.Request;
-
-import com.google.gson.Gson;
 import com.sape.xi2014.search.entity.SearchProtos.Item;
 import com.sape.xi2014.search.entity.SearchProtos.SearchRequest;
 import com.sape.xi2014.search.entity.SearchProtos.SearchResponse;
 import com.sape.xi2014.search.etsy.EtsySearchResponse;
+import com.sape.xi2014.search.etsy.EtsySearchResponseBuilder;
 import com.sape.xi2014.search.etsy.Result;
 
 public class SearchService {
@@ -22,21 +18,21 @@ public class SearchService {
 
 	@SuppressWarnings("deprecation")
 	public SearchResponse getSearchResults(SearchRequest searchRequest) throws Exception {
-
-		String etsyResponse = null;
 		SearchResponse searchResponse = null;
-		// Call to Etsy API to get the search Result using searchTerm
-		etsyResponse = Request
-				.Get("https://openapi.etsy.com/v2/listings/active?api_key=".concat(API_KEY).concat("&keywords=")
-						.concat(URLEncoder.encode(searchRequest.getSearchTerm())))
-				.viaProxy(new HttpHost("localhost", 8888, "http")).execute().returnContent().asString();
-
 		// mapping the search response json to proto class
-		searchResponse = parseEtsyResponse(etsyResponse);
-
+		searchResponse = parseEtsyResponse();
 		// searchResponse
+		injectdelay();
 		return searchResponse;
 
+	}
+	
+	private void injectdelay() {
+		try {
+			Thread.sleep((long) (Math.random() * 1000));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+		}
 	}
 
 	/**
@@ -44,9 +40,8 @@ public class SearchService {
 	 * @param searchResponse
 	 * @return
 	 */
-	protected SearchResponse parseEtsyResponse(String searchResponse) {
-		Gson gson = new Gson();
-		EtsySearchResponse response = gson.fromJson(searchResponse, EtsySearchResponse.class);
+	protected SearchResponse parseEtsyResponse() {
+		EtsySearchResponse response = EtsySearchResponseBuilder.generateSearchResult();
 
 		List<Item> itemList = new ArrayList<Item>();
 
